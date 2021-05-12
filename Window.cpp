@@ -1,11 +1,12 @@
 #include "Window.h"
 
-Window::Window(std::string title, const int width, const int height) {
-    mWidth = width;
-    mHeight = height;
-    mTitle = title;
-    mpWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                width, height, SDL_WINDOW_SHOWN);
+Window::Window(std::string title, bool isFoolScreen, int width, int height) {
+    Uint32 flags = SDL_WINDOW_SHOWN;
+    if (isFoolScreen) {
+        flags |= SDL_WINDOW_FULLSCREEN;
+    }
+    mpWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                width, height, flags);
     if (mpWindow == NULL) throw std::bad_alloc();
 }
 

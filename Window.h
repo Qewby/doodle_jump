@@ -7,15 +7,12 @@
 
 class Window {
 public:
-    Window(std::string title, const int width, const int height);
+    Window(std::string title, bool isFoolScreen, int width, int height);
     ~Window();
 
     SDL_Window* GetRawWindow() const;
 private:
     SDL_Window *mpWindow;
-    std::string mTitle;
-    int mWidth;
-    int mHeight;
 };
 
 
