@@ -3,7 +3,7 @@ project(doodle_jump)
 
 set(CMAKE_CXX_STANDARD 14)
 set (SOURCE_FILES main.cpp Window.cpp Window.h Game.cpp Game.h Renderer.cpp
-        Renderer.h IDrawable.h Doodle.cpp Doodle.h EventHandler.cpp EventHandler.h)
+        Renderer.h IDrawable.h Doodle.cpp Doodle.h EventHandler.cpp EventHandler.h IPlatform.h SimplePlatform.cpp SimplePlatform.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(doodle_jump ${SDL2_INCLUDE_DIRS})

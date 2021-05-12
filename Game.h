@@ -9,6 +9,12 @@
 #include "Renderer.h"
 #include "Doodle.h"
 #include "EventHandler.h"
+#include "SimplePlatform.h"
+
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
+
+class Doodle;
 
 class Game {
 public:

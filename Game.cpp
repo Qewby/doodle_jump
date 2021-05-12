@@ -1,5 +1,8 @@
 #include "Game.h"
 
+int WINDOW_HEIGHT;
+int WINDOW_WIDTH;
+
 Game::Game(std::string name, bool isFullScreen) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "Can't init SDL: " << SDL_GetError() << std::endl;
@@ -20,10 +23,12 @@ Game::Game(std::string name, bool isFullScreen) {
         mpWindow = new Window{name, isFullScreen, width, height};
     }
     SDL_GetWindowSize(mpWindow->GetRawWindow(), &mWindowWidth, &mWindowHeight);
+    WINDOW_HEIGHT = mWindowHeight;
+    WINDOW_WIDTH = mWindowWidth;
 
     mpRenderer = new Renderer(*mpWindow);
 
-    mpDoodle = new Doodle(mWindowWidth, mWindowHeight);
+    mpDoodle = new Doodle();
 
     mQuit = false;
 
@@ -38,6 +43,9 @@ Game::~Game() {
 }
 
 void Game::Run() {
+
+    SimplePlatform platform{mWindowWidth - 100, mWindowHeight - 100};
+
     unsigned int t;
     while(!mQuit)
     {
@@ -47,6 +55,7 @@ void Game::Run() {
         mpDoodle->Move();
 
         mpRenderer->ClearScreen();
+        platform.Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 

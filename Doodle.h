@@ -3,10 +3,11 @@
 
 #include "IDrawable.h"
 #include "EventHandler.h"
+#include "Game.h"
 
 class Doodle : public IDrawable {
 public:
-    Doodle(int windowWidth, int windowHeight);
+    Doodle();
     ~Doodle();
 
     void Draw(Renderer& renderer);
@@ -14,9 +15,6 @@ public:
     void Move();
 private:
     SDL_Rect mHitBox;
-
-    int mWindowWidth;
-    int mWindowHeight;
 
     double mVerticalSpeed;
     double mHorizontalSpeed;

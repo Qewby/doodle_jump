@@ -1,15 +1,12 @@
 #include "Doodle.h"
 
-Doodle::Doodle(int windowWidth, int windowHeight) : mcMaxHorizontalSpeed(windowWidth * 0.015),
+Doodle::Doodle() : mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
     mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(0.4)
     {
-    mHitBox.h = windowHeight * 0.07;
+    mHitBox.h = WINDOW_HEIGHT * 0.07;
     mHitBox.w = mHitBox.h / 3 * 2;
-    mHitBox.x = (windowWidth - mHitBox.w) / 2;
-    mHitBox.y = windowHeight - 200;
-
-    mWindowWidth = windowWidth;
-    mWindowHeight = windowHeight;
+    mHitBox.x = (WINDOW_WIDTH - mHitBox.w) / 2;
+    mHitBox.y = WINDOW_HEIGHT - 200;
 
     mHorizontalSpeed = 0;
     mVerticalSpeed = 0;
@@ -45,9 +42,9 @@ void Doodle::Move() {
     }
 
     mHitBox.x += mHorizontalSpeed;
-    if (mHitBox.x + mHitBox.w / 2 < 0) mHitBox.x += mWindowWidth;
-    if (mHitBox.x + mHitBox.w / 2 > mWindowWidth) mHitBox.x -= mWindowWidth;
+    if (mHitBox.x + mHitBox.w / 2 < 0) mHitBox.x += WINDOW_WIDTH;
+    if (mHitBox.x + mHitBox.w / 2 > WINDOW_WIDTH) mHitBox.x -= WINDOW_WIDTH;
     mHitBox.y += mVerticalSpeed;
     mVerticalSpeed += mcVerticalAcceleration;
-    if (mHitBox.y + mHitBox.h > mWindowHeight) mVerticalSpeed = -15;
+    if (mHitBox.y + mHitBox.h > WINDOW_HEIGHT) mVerticalSpeed = -15;
 }
