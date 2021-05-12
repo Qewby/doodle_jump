@@ -23,10 +23,13 @@ Game::Game(std::string name, bool isFullScreen) {
 
     mpRenderer = new Renderer(*mpWindow);
 
+    mpDoodle = new Doodle(mWindowWidth, mWindowHeight);
+
     mQuit = false;
 }
 
 Game::~Game() {
+    delete mpDoodle;
     delete mpRenderer;
     delete mpWindow;
     SDL_Quit();
@@ -34,11 +37,6 @@ Game::~Game() {
 
 void Game::Run() {
 
-    SDL_Rect rect;
-    rect.h = 60;
-    rect.w = 40;
-    rect.x = (mWindowWidth - rect.w) / 2;
-    rect.y = mWindowHeight - 200;
     double yAxisSpeed = 10;
     const double yAxisAcceleration = 0.4;
     double xAxisSpeed = 0;
@@ -62,8 +60,8 @@ void Game::Run() {
                     break;
                 case SDL_KEYDOWN:
                 case SDL_KEYUP:
-                    leftPressed = keyboard_state_array[SDL_SCANCODE_LEFT];
-                    rightPressed = keyboard_state_array[SDL_SCANCODE_RIGHT];
+                    leftPressed = keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A];
+                    rightPressed = keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D];
                     break;
             }
         }
@@ -83,16 +81,15 @@ void Game::Run() {
             else xAxisSpeed /= 1.8;
         }
 
-        rect.x += xAxisSpeed;
-        if (rect.x + rect.w / 2 < 0) rect.x += mWindowWidth;
-        if (rect.x + rect.w / 2 > mWindowWidth) rect.x -= mWindowWidth;
-        rect.y += yAxisSpeed;
+        mpDoodle->GetHitBox().x += xAxisSpeed;
+        if (mpDoodle->GetHitBox().x + mpDoodle->GetHitBox().w / 2 < 0) mpDoodle->GetHitBox().x += mWindowWidth;
+        if (mpDoodle->GetHitBox().x + mpDoodle->GetHitBox().w / 2 > mWindowWidth) mpDoodle->GetHitBox().x -= mWindowWidth;
+        mpDoodle->GetHitBox().y += yAxisSpeed;
         yAxisSpeed += yAxisAcceleration;
-        if (rect.y + rect.h > mWindowHeight) yAxisSpeed = -15;
+        if (mpDoodle->GetHitBox().y + mpDoodle->GetHitBox().h > mWindowHeight) yAxisSpeed = -15;
 
         mpRenderer->ClearScreen();
-        SDL_SetRenderDrawColor(mpRenderer->GetRawRenderer(), 255, 255, 255, 255);
-        SDL_RenderFillRect(mpRenderer->GetRawRenderer(), &rect);
+        mpDoodle->Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 
 

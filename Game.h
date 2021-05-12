@@ -7,6 +7,7 @@
 
 #include "Window.h"
 #include "Renderer.h"
+#include "Doodle.h"
 
 class Game {
 public:
@@ -15,6 +16,7 @@ public:
     void Run();
 
 private:
+    Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;
     int mScreenHeight;
