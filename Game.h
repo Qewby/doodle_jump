@@ -3,8 +3,10 @@
 
 #include <iostream>
 
-#include "Window.h"
 #include "SDL.h"
+
+#include "Window.h"
+#include "Renderer.h"
 
 class Game {
 public:
@@ -13,6 +15,7 @@ public:
     void Run();
 
 private:
+    Renderer *mpRenderer;
     Window *mpWindow;
     int mScreenHeight;
     int mScreenWidth;

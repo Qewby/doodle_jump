@@ -20,22 +20,19 @@ Game::Game(std::string name, bool isFullScreen) {
         mpWindow = new Window{name, isFullScreen, width, height};
     }
     SDL_GetWindowSize(mpWindow->GetRawWindow(), &mWindowWidth, &mWindowHeight);
+
+    mpRenderer = new Renderer(*mpWindow);
+
     mQuit = false;
 }
 
 Game::~Game() {
+    delete mpRenderer;
     delete mpWindow;
     SDL_Quit();
 }
 
 void Game::Run() {
-    SDL_Renderer *renderer;
-
-    renderer = SDL_CreateRenderer(mpWindow->GetRawWindow(), -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL) {
-        std::cerr << "Can't create renderer: " << SDL_GetError() << std::endl;
-        throw std::bad_alloc();
-    }
 
     SDL_Rect rect;
     rect.h = 60;
@@ -93,11 +90,11 @@ void Game::Run() {
         yAxisSpeed += yAxisAcceleration;
         if (rect.y + rect.h > mWindowHeight) yAxisSpeed = -15;
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(renderer, &rect);
-        SDL_RenderPresent(renderer);
+        mpRenderer->ClearScreen();
+        SDL_SetRenderDrawColor(mpRenderer->GetRawRenderer(), 255, 255, 255, 255);
+        SDL_RenderFillRect(mpRenderer->GetRawRenderer(), &rect);
+        mpRenderer->DrawScreen();
+
 
         t = SDL_GetTicks () - t;
         if (t < 1000 / mScreenRate) {
@@ -105,5 +102,5 @@ void Game::Run() {
         }
     }
 
-    SDL_DestroyRenderer(renderer);
+
 }
