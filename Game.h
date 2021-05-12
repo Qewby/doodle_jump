@@ -18,6 +18,7 @@ private:
     int mScreenWidth;
     int mWindowHeight;
     int mWindowWidth;
+    int mScreenRate;
     bool mQuit;
 };
 
