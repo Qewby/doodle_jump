@@ -4,8 +4,8 @@
 
 #include "Window.h"
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 480;
+const int SCREEN_HEIGHT = 760;
 
 int main()
 {
@@ -25,20 +25,51 @@ int main()
         return 1;
     }
 
+    SDL_Rect rect;
+    rect.x = 20;
+    rect.y = 20;
+    rect.h = 30;
+    rect.w = 30;
+
     SDL_Event event;
+    const Uint8 *keyboard_state_array = SDL_GetKeyboardState(NULL);
     while(!quit)
     {
         while(SDL_PollEvent(&event))
         {
             SDL_PumpEvents();
-            if(event.type == SDL_QUIT)
-                quit=true;
+            if(event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+            {
+                if (keyboard_state_array[SDL_SCANCODE_UP] && !(keyboard_state_array[SDL_SCANCODE_DOWN]))
+                {
+                    rect.y -= 5;
+                }
+                else if (!keyboard_state_array[SDL_SCANCODE_UP] && keyboard_state_array[SDL_SCANCODE_DOWN])
+                {
+                    rect.y += 5;
+                }
+
+                if (keyboard_state_array[SDL_SCANCODE_RIGHT] && !keyboard_state_array[SDL_SCANCODE_LEFT])
+                {
+                    rect.x += 5;
+                }
+                else if (!keyboard_state_array[SDL_SCANCODE_RIGHT] && keyboard_state_array[SDL_SCANCODE_LEFT])
+                {
+                    rect.x -= 5;
+                }
+            }
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            }
         }
-        SDL_RenderClear( renderer );
-        SDL_RenderPresent( renderer );
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &rect);
+        SDL_RenderPresent(renderer);
     }
 
-    SDL_DestroyRenderer( renderer );
+    SDL_DestroyRenderer(renderer);
     SDL_Quit();
     return 0;
 }
