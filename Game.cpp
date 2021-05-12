@@ -26,6 +26,8 @@ Game::Game(std::string name, bool isFullScreen) {
     mpDoodle = new Doodle(mWindowWidth, mWindowHeight);
 
     mQuit = false;
+
+    mpHandler = new EventHandler(mQuit);
 }
 
 Game::~Game() {
@@ -43,35 +45,20 @@ void Game::Run() {
     const double xAxisAcceleration = 0.5;
     const int maxSpeed = 8;
 
-    SDL_Event event;
-    const Uint8 *keyboard_state_array = SDL_GetKeyboardState(NULL);
 
     unsigned int t;
-    bool leftPressed = false;
-    bool rightPressed = false;
     while(!mQuit)
     {
         t = SDL_GetTicks();
-        while(SDL_PollEvent(&event))
-        {
-            switch (event.type) {
-                case SDL_QUIT:
-                    mQuit = true;
-                    break;
-                case SDL_KEYDOWN:
-                case SDL_KEYUP:
-                    leftPressed = keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A];
-                    rightPressed = keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D];
-                    break;
-            }
-        }
 
-        if (rightPressed && !leftPressed)
+        mpHandler->Listen();
+
+        if (gKeyStatesMap["right"] && !gKeyStatesMap["left"])
         {
             if (xAxisSpeed <= maxSpeed) xAxisSpeed += xAxisAcceleration;
             if (xAxisSpeed < 0) xAxisSpeed = 0;
         }
-        else if (!rightPressed && leftPressed)
+        else if (!gKeyStatesMap["right"] && gKeyStatesMap["left"])
         {
             if (xAxisSpeed >= -maxSpeed) xAxisSpeed -= xAxisAcceleration;
             if (xAxisSpeed > 0) xAxisSpeed = 0;

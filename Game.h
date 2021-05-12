@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Doodle.h"
+#include "EventHandler.h"
 
 class Game {
 public:
@@ -16,6 +17,7 @@ public:
     void Run();
 
 private:
+    EventHandler *mpHandler;
     Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;
