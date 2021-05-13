@@ -23,10 +23,12 @@ public:
     void Run();
 
 private:
-    EventListener mHandler;
     Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;
+    CollisionHandler *mpCollisionHandler;
+    Field *mpField;
+    EventListener mListener;
     int mScreenHeight;
     int mScreenWidth;
     int mWindowHeight;

@@ -1,12 +1,12 @@
 #include "Field.h"
 
-Field::Field() {
-    int step = WINDOW_HEIGHT / 18;
-    std::random_device randomizer{};
-    int x = 0;
-    for (int y = WINDOW_HEIGHT - step; y >= -step; y -= step) {
-        x = randomizer() % static_cast<int>(WINDOW_WIDTH * 0.83);
-        mPlatforms.push_back(new SimplePlatform(x, y));
+Field::Field() : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT) {
+    mLastPosition = WINDOW_HEIGHT - mcStep;
+    mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
+    mLastPosition -= mcStep;
+    while (mLastPosition >= -mcStep) {
+        mPlatforms.push_front(mFactory.createPlatform(GetRandomX(), mLastPosition));
+        mLastPosition -= mcStep;
     }
 }
 
@@ -25,7 +25,21 @@ std::deque<Platform *>& Field::GetPlatforms() {
 }
 
 void Field::Shift(int value) {
+    mLastPosition += value;
     for (auto platform : mPlatforms) {
-        platform->GetHitBox().y += value;
+        SDL_Rect& platformHitBox = platform->GetHitBox();
+        platformHitBox.y += value;
+        if (platformHitBox.y > WINDOW_HEIGHT) {
+            Platform* toDelete = mPlatforms.back();
+            mPlatforms.pop_back();
+            delete toDelete;
+            mPlatforms.push_front(mFactory.createPlatform(GetRandomX(), mLastPosition));
+            mLastPosition -= mcStep;
+        }
     }
+}
+
+int Field::GetRandomX() {
+    std::random_device randomizer{};
+    return randomizer() % static_cast<int>(WINDOW_WIDTH * 0.83);
 }

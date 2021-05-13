@@ -2,6 +2,7 @@
 #define DOODLE_JUMP_DOODLE_H
 
 #include "IDrawable.h"
+#include "Field.h"
 #include "EventListener.h"
 
 extern int WINDOW_WIDTH;
@@ -9,7 +10,7 @@ extern int WINDOW_HEIGHT;
 
 class Doodle : public IDrawable {
 public:
-    Doodle();
+    Doodle(Field& field);
     ~Doodle();
 
     void Draw(Renderer& renderer);
@@ -20,6 +21,8 @@ public:
 private:
     SDL_Rect mHitBox;
 
+    Field& mrField;
+
     double mVerticalSpeed;
     double mHorizontalSpeed;
 
@@ -27,7 +30,7 @@ private:
     const double mcHorizontalAcceleration;
     const double mcVerticalAcceleration;
 
-    const signed int mcJumpSpeed = -15;
+    const signed int mcJumpSpeed = -12;
 };
 
 

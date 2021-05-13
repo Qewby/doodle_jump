@@ -3,7 +3,7 @@
 int WINDOW_HEIGHT;
 int WINDOW_WIDTH;
 
-Game::Game(std::string name, bool isFullScreen) : mHandler(mQuit) {
+Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "Can't init SDL: " << SDL_GetError() << std::endl;
         throw std::bad_alloc();
@@ -18,7 +18,7 @@ Game::Game(std::string name, bool isFullScreen) : mHandler(mQuit) {
     if (isFullScreen) {
         mpWindow = new Window{name, isFullScreen, mScreenWidth, mScreenHeight};
     } else {
-        int height = mScreenHeight * 0.8;
+        int height = mScreenHeight * 0.9;
         int width = height / 1.7;
         mpWindow = new Window{name, isFullScreen, width, height};
     }
@@ -28,13 +28,19 @@ Game::Game(std::string name, bool isFullScreen) : mHandler(mQuit) {
 
     mpRenderer = new Renderer(*mpWindow);
 
-    mpDoodle = new Doodle();
+    mpField = new Field();
+
+    mpDoodle = new Doodle(*mpField);
+
+    mpCollisionHandler = new CollisionHandler(*mpField, *mpDoodle);
 
     mQuit = false;
 }
 
 Game::~Game() {
+    delete mpCollisionHandler;
     delete mpDoodle;
+    delete mpField;
     delete mpRenderer;
     delete mpWindow;
     SDL_Quit();
@@ -42,21 +48,17 @@ Game::~Game() {
 
 void Game::Run() {
 
-    Field field{};
-
-    CollisionHandler handler{field, *mpDoodle};
-
     unsigned int t;
     while(!mQuit)
     {
         t = SDL_GetTicks();
 
-        mHandler.Listen();
+        mListener.Listen();
         mpDoodle->Move();
-        handler.Handle();
+        mpCollisionHandler->Handle();
 
         mpRenderer->ClearScreen();
-        field.Draw(*mpRenderer);
+        mpField->Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 

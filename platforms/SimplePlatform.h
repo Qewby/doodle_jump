@@ -2,7 +2,6 @@
 #define DOODLE_JUMP_SIMPLEPLATFORM_H
 
 #include "Platform.h"
-#include "../Renderer.h"
 
 class SimplePlatform : public Platform {
 public:

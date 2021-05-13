@@ -15,7 +15,7 @@ void CollisionHandler::Handle() {
         SDL_Rect platformHitBox = platform->GetHitBox();
         if (mrDoodle.isFalling() &&
             platformHitBox.y - doodleHitBox.y < doodleHitBox.h &&
-            platformHitBox.y - doodleHitBox.y > platformHitBox.h * 1.4 &&
+            platformHitBox.y - doodleHitBox.y > doodleHitBox.h - platformHitBox.h * 0.8 &&
             doodleHitBox.x + doodleHitBox.w > platformHitBox.x &&
             doodleHitBox.x < platformHitBox.x + platformHitBox.w)
         {

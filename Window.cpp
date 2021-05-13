@@ -5,7 +5,7 @@ Window::Window(std::string title, bool isFoolScreen, int width, int height) {
     if (isFoolScreen) {
         flags |= SDL_WINDOW_FULLSCREEN;
     }
-    mpWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    mpWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 0,
                                 width, height, flags);
     if (mpWindow == NULL) throw std::bad_alloc();
 }

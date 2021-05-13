@@ -1,7 +1,7 @@
 #include "Doodle.h"
 
-Doodle::Doodle() : mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
-    mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(0.4)
+Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
+    mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(0.35)
     {
     mHitBox.h = WINDOW_HEIGHT * 0.07;
     mHitBox.w = mHitBox.h / 3 * 2;
@@ -46,6 +46,13 @@ void Doodle::Move() {
     if (mHitBox.x + mHitBox.w / 2 > WINDOW_WIDTH) mHitBox.x -= WINDOW_WIDTH;
     mHitBox.y += mVerticalSpeed;
     mVerticalSpeed += mcVerticalAcceleration;
+    if (mHitBox.y < WINDOW_HEIGHT / 2) {
+        mrField.Shift(WINDOW_HEIGHT / 2 - mHitBox.y);
+        mHitBox.y = WINDOW_HEIGHT / 2;
+    }
+    else {
+        mrField.Shift(0);
+    }
 }
 
 void Doodle::Jump() {
