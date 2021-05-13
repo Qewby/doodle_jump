@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "CollisionHandler.h"
 #include "EventListener.h"
+#include "ScoreLine.h"
 
 extern int SCORE;
 
