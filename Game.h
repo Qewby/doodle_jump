@@ -9,7 +9,7 @@
 #include "Renderer.h"
 #include "Doodle.h"
 #include "EventListener.h"
-#include "platforms/SimplePlatform.h"
+#include "Field.h"
 
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;

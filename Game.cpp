@@ -44,8 +44,7 @@ Game::~Game() {
 
 void Game::Run() {
 
-    SimplePlatform platform{mWindowWidth - 100, mWindowHeight - 100};
-    SimplePlatform platform2{mWindowWidth - 200, mWindowHeight - 200};
+    Field field{};
 
     unsigned int t;
     while(!mQuit)
@@ -56,8 +55,7 @@ void Game::Run() {
         mpDoodle->Move();
 
         mpRenderer->ClearScreen();
-        platform.Draw(*mpRenderer);
-        platform2.Draw(*mpRenderer);
+        field.Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 
