@@ -25,6 +25,7 @@ std::deque<Platform *>& Field::GetPlatforms() {
 }
 
 void Field::Shift(int value) {
+    SCORE += value;
     mLastPosition += value;
     for (auto platform : mPlatforms) {
         SDL_Rect& platformHitBox = platform->GetHitBox();

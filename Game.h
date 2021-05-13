@@ -4,12 +4,14 @@
 #include <iostream>
 
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 #include "Window.h"
 #include "Renderer.h"
 #include "CollisionHandler.h"
 #include "EventListener.h"
 
+extern int SCORE;
 
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;

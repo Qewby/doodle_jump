@@ -8,6 +8,8 @@
 
 #include "platforms/PlatformFactory.h"
 
+extern int SCORE;
+
 class Field : public IDrawable {
 public:
     Field();
