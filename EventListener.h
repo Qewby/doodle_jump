@@ -1,5 +1,5 @@
-#ifndef DOODLE_JUMP_EVENTHANDLER_H
-#define DOODLE_JUMP_EVENTHANDLER_H
+#ifndef DOODLE_JUMP_EVENTLISTENER_H
+#define DOODLE_JUMP_EVENTLISTENER_H
 
 #include <map>
 
@@ -7,10 +7,10 @@
 
 extern std::map<std::string, bool> gKeyStatesMap;
 
-class EventHandler {
+class EventListener {
 public:
-    EventHandler(bool& quit);
-    ~EventHandler();
+    EventListener(bool& quit);
+    ~EventListener();
 
     void Listen();
 private:
@@ -20,4 +20,4 @@ private:
 };
 
 
-#endif //DOODLE_JUMP_EVENTHANDLER_H
+#endif //DOODLE_JUMP_EVENTLISTENER_H

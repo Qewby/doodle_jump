@@ -1,16 +1,16 @@
-#include "EventHandler.h"
+#include "EventListener.h"
 
 std::map<std::string, bool> gKeyStatesMap;
 
-EventHandler::EventHandler(bool& quit) : mQuit(quit) {
+EventListener::EventListener(bool& quit) : mQuit(quit) {
     mpKeyboardStateArray = SDL_GetKeyboardState(NULL);
 }
 
-EventHandler::~EventHandler() {
+EventListener::~EventListener() {
 
 }
 
-void EventHandler::Listen() {
+void EventListener::Listen() {
     while(SDL_PollEvent(&mEvent))
     {
         switch (mEvent.type) {

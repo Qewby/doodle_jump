@@ -8,8 +8,8 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Doodle.h"
-#include "EventHandler.h"
-#include "SimplePlatform.h"
+#include "EventListener.h"
+#include "platforms/SimplePlatform.h"
 
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;
@@ -23,7 +23,7 @@ public:
     void Run();
 
 private:
-    EventHandler *mpHandler;
+    EventListener *mpHandler;
     Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;

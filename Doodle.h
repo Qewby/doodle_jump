@@ -2,8 +2,10 @@
 #define DOODLE_JUMP_DOODLE_H
 
 #include "IDrawable.h"
-#include "EventHandler.h"
+#include "EventListener.h"
 #include "Game.h"
+
+class Game;
 
 class Doodle : public IDrawable {
 public:

@@ -32,7 +32,7 @@ Game::Game(std::string name, bool isFullScreen) {
 
     mQuit = false;
 
-    mpHandler = new EventHandler(mQuit);
+    mpHandler = new EventListener(mQuit);
 }
 
 Game::~Game() {
@@ -45,6 +45,7 @@ Game::~Game() {
 void Game::Run() {
 
     SimplePlatform platform{mWindowWidth - 100, mWindowHeight - 100};
+    SimplePlatform platform2{mWindowWidth - 200, mWindowHeight - 200};
 
     unsigned int t;
     while(!mQuit)
@@ -56,6 +57,7 @@ void Game::Run() {
 
         mpRenderer->ClearScreen();
         platform.Draw(*mpRenderer);
+        platform2.Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 
