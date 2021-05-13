@@ -3,8 +3,8 @@
 Platform::Platform(int x, int y) {
     mHitBox.x = x;
     mHitBox.y = y;
-    mHitBox.h = WINDOW_HEIGHT * 0.027;
-    mHitBox.w = WINDOW_WIDTH * 0.18;
+    mHitBox.h = WINDOW_HEIGHT * 0.021;
+    mHitBox.w = WINDOW_WIDTH * 0.16;
 }
 
 bool Platform::isVisible() {
