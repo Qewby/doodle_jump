@@ -7,9 +7,9 @@
 
 #include "Window.h"
 #include "Renderer.h"
-#include "Doodle.h"
+#include "CollisionHandler.h"
 #include "EventListener.h"
-#include "Field.h"
+
 
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;
@@ -23,7 +23,7 @@ public:
     void Run();
 
 private:
-    EventListener *mpHandler;
+    EventListener mHandler;
     Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;

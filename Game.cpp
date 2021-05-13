@@ -3,7 +3,7 @@
 int WINDOW_HEIGHT;
 int WINDOW_WIDTH;
 
-Game::Game(std::string name, bool isFullScreen) {
+Game::Game(std::string name, bool isFullScreen) : mHandler(mQuit) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "Can't init SDL: " << SDL_GetError() << std::endl;
         throw std::bad_alloc();
@@ -31,8 +31,6 @@ Game::Game(std::string name, bool isFullScreen) {
     mpDoodle = new Doodle();
 
     mQuit = false;
-
-    mpHandler = new EventListener(mQuit);
 }
 
 Game::~Game() {
@@ -46,13 +44,16 @@ void Game::Run() {
 
     Field field{};
 
+    CollisionHandler handler{field, *mpDoodle};
+
     unsigned int t;
     while(!mQuit)
     {
         t = SDL_GetTicks();
 
-        mpHandler->Listen();
+        mHandler.Listen();
         mpDoodle->Move();
+        handler.Handle();
 
         mpRenderer->ClearScreen();
         field.Draw(*mpRenderer);

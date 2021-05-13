@@ -6,10 +6,10 @@ Doodle::Doodle() : mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
     mHitBox.h = WINDOW_HEIGHT * 0.07;
     mHitBox.w = mHitBox.h / 3 * 2;
     mHitBox.x = (WINDOW_WIDTH - mHitBox.w) / 2;
-    mHitBox.y = WINDOW_HEIGHT - 200;
+    mHitBox.y = WINDOW_HEIGHT;
 
     mHorizontalSpeed = 0;
-    mVerticalSpeed = 0;
+    Jump();
 }
 
 Doodle::~Doodle() {
@@ -46,5 +46,12 @@ void Doodle::Move() {
     if (mHitBox.x + mHitBox.w / 2 > WINDOW_WIDTH) mHitBox.x -= WINDOW_WIDTH;
     mHitBox.y += mVerticalSpeed;
     mVerticalSpeed += mcVerticalAcceleration;
-    if (mHitBox.y + mHitBox.h > WINDOW_HEIGHT) mVerticalSpeed = -15;
+}
+
+void Doodle::Jump() {
+    mVerticalSpeed = mcJumpSpeed;
+}
+
+bool Doodle::isFalling() {
+    return mVerticalSpeed >= 0;
 }

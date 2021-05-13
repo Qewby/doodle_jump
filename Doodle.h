@@ -3,9 +3,9 @@
 
 #include "IDrawable.h"
 #include "EventListener.h"
-#include "Game.h"
 
-class Game;
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
 
 class Doodle : public IDrawable {
 public:
@@ -15,6 +15,8 @@ public:
     void Draw(Renderer& renderer);
     SDL_Rect& GetHitBox();
     void Move();
+    void Jump();
+    bool isFalling();
 private:
     SDL_Rect mHitBox;
 
@@ -24,6 +26,8 @@ private:
     const int mcMaxHorizontalSpeed;
     const double mcHorizontalAcceleration;
     const double mcVerticalAcceleration;
+
+    const signed int mcJumpSpeed = -15;
 };
 
 

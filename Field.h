@@ -13,7 +13,8 @@ public:
     ~Field();
 
     void Draw(Renderer &renderer) override;
-
+    std::deque<Platform*>& GetPlatforms();
+    void Shift(int value);
 private:
     std::deque<Platform*> mPlatforms;
 };

@@ -12,6 +12,8 @@ public:
     virtual ~Platform() {};
 
     bool isVisible();
+    SDL_Rect& GetHitBox();
+
     virtual bool CollisionCallback(bool isCollided) = 0;
 protected:
     SDL_Rect mHitBox;

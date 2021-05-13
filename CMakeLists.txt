@@ -3,7 +3,7 @@ project(doodle_jump)
 
 set(CMAKE_CXX_STANDARD 14)
 set (SOURCE_FILES main.cpp Window.cpp Window.h Game.cpp Game.h Renderer.cpp
-        Renderer.h IDrawable.h Doodle.cpp Doodle.h EventListener.cpp EventListener.h platforms/Platform.h platforms/SimplePlatform.cpp platforms/SimplePlatform.h platforms/Platform.cpp Field.cpp Field.h)
+        Renderer.h IDrawable.h Doodle.cpp Doodle.h EventListener.cpp EventListener.h platforms/Platform.h platforms/SimplePlatform.cpp platforms/SimplePlatform.h platforms/Platform.cpp Field.cpp Field.h CollisionHandler.cpp CollisionHandler.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(doodle_jump ${SDL2_INCLUDE_DIRS})
