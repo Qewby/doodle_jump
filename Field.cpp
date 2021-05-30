@@ -8,6 +8,12 @@ Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgram
         mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
         mLastPosition -= mcStep;
     }
+
+    mHitBox.x = 0;
+    mHitBox.y = 0;
+    mHitBox.h = WINDOW_HEIGHT;
+    mHitBox.w = WINDOW_WIDTH;
+    mpFieldTexture = nullptr;
 }
 
 Field::~Field() {
@@ -17,6 +23,15 @@ Field::~Field() {
 }
 
 void Field::Draw(Renderer &renderer) {
+    if (!mpFieldTexture) {
+        SDL_Surface *pSurface = IMG_Load("background.png");
+        if (pSurface) {
+            mpFieldTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            SDL_FreeSurface(pSurface);
+        }
+    }
+    SDL_RenderCopy(renderer.GetRawRenderer(), mpFieldTexture, NULL, &mHitBox);
+
     for (auto platform : mPlatforms) {
         platform->Draw(renderer);
     }

@@ -28,6 +28,10 @@ private:
     int mLastPosition;
 
     bool& mrProgramQuit;
+
+private:
+    SDL_Rect mHitBox;
+    SDL_Texture *mpFieldTexture;
 };
 
 
