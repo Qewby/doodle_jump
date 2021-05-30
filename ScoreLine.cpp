@@ -9,8 +9,8 @@ ScoreLine::ScoreLine() {
     mpFont = TTF_OpenFont("arial.ttf", 25);
 
     mTextHitBox.h = mLineHitBox.h;
-    mTextHitBox.w = mLineHitBox.h * 0.7 * mcMaxScoreLength;
-    mTextHitBox.x = mLineHitBox.h * 0.3;
+    mTextHitBox.w = mLineHitBox.h * 0.4 * mcMaxScoreLength;
+    mTextHitBox.x = mLineHitBox.h / 2;
     mTextHitBox.y = 0;
 }
 

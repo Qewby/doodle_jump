@@ -20,6 +20,8 @@ public:
     bool isFalling();
 private:
     SDL_Rect mHitBox;
+    SDL_Rect mTextureHitBox;
+    SDL_Texture *mpDoodleTexture;
 
     Field& mrField;
 
@@ -29,8 +31,7 @@ private:
     const int mcMaxHorizontalSpeed;
     const double mcHorizontalAcceleration;
     const double mcVerticalAcceleration;
-
-    const signed int mcJumpSpeed = -12;
+    const signed int mcJumpSpeed;
 };
 
 

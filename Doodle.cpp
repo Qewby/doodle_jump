@@ -1,12 +1,16 @@
 #include "Doodle.h"
 
 Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
-    mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(0.35)
+    mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(WINDOW_HEIGHT / 2780.0),
+    mcJumpSpeed(-(mcVerticalAcceleration * 35))
     {
     mHitBox.h = WINDOW_HEIGHT * 0.07;
-    mHitBox.w = mHitBox.h / 3 * 2;
+    mHitBox.w = mHitBox.h * 4 / 5;
     mHitBox.x = (WINDOW_WIDTH - mHitBox.w) / 2;
-    mHitBox.y = WINDOW_HEIGHT;
+    mHitBox.y = WINDOW_HEIGHT - mHitBox.h - 1;
+
+    mTextureHitBox.h = mHitBox.h;
+    mTextureHitBox.w = mHitBox.h;
 
     mHorizontalSpeed = 0;
     Jump();
@@ -17,8 +21,19 @@ Doodle::~Doodle() {
 }
 
 void Doodle::Draw(Renderer &renderer) {
-    SDL_SetRenderDrawColor(renderer.GetRawRenderer(), 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer.GetRawRenderer(), &mHitBox);
+    mTextureHitBox.x = mHitBox.x;
+    mTextureHitBox.y = mHitBox.y;
+
+    static bool firstDraw = true;
+    if (firstDraw) {
+        SDL_Surface *pSurface = IMG_Load("ninja.png");
+        if (pSurface) {
+            mpDoodleTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            SDL_FreeSurface(pSurface);
+        }
+        firstDraw = false;
+    }
+    SDL_RenderCopy(renderer.GetRawRenderer(), mpDoodleTexture, NULL, &mTextureHitBox);
 }
 
 SDL_Rect& Doodle::GetHitBox() {
@@ -49,6 +64,10 @@ void Doodle::Move() {
     if (mHitBox.y < WINDOW_HEIGHT / 2) {
         mrField.Shift(WINDOW_HEIGHT / 2 - mHitBox.y);
         mHitBox.y = WINDOW_HEIGHT / 2;
+    }
+    else if (mHitBox.y + mHitBox.h > WINDOW_HEIGHT) {
+        mrField.Shift(-mVerticalSpeed);
+        mHitBox.y = WINDOW_HEIGHT - mHitBox.h - 1;;
     }
     else {
         mrField.Shift(0);

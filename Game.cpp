@@ -34,7 +34,7 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
 
     mpRenderer = new Renderer(*mpWindow);
 
-    mpField = new Field();
+    mpField = new Field(mQuit);
 
     mpDoodle = new Doodle(*mpField);
 

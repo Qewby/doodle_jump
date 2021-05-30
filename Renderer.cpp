@@ -17,7 +17,7 @@ SDL_Renderer* Renderer::GetRawRenderer() const {
 }
 
 void Renderer::ClearScreen() {
-    SDL_SetRenderDrawColor(mpRenderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(mpRenderer, 255, 255, 255, 255);
     SDL_RenderClear(mpRenderer);
 }
 

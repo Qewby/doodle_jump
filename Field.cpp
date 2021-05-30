@@ -1,6 +1,6 @@
 #include "Field.h"
 
-Field::Field() : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT) {
+Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgramQuit(quit) {
     mLastPosition = WINDOW_HEIGHT - mcStep;
     mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
     mLastPosition -= mcStep;
@@ -11,7 +11,9 @@ Field::Field() : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT) {
 }
 
 Field::~Field() {
-
+    for (auto platform : mPlatforms) {
+        delete platform;
+    }
 }
 
 void Field::Draw(Renderer &renderer) {
@@ -25,7 +27,6 @@ std::deque<Platform *>& Field::GetPlatforms() {
 }
 
 void Field::Shift(int value) {
-    SCORE += value;
     mLastPosition += value;
     for (auto platform : mPlatforms) {
         SDL_Rect& platformHitBox = platform->GetHitBox();
@@ -38,6 +39,8 @@ void Field::Shift(int value) {
             mLastPosition -= mcStep;
         }
     }
+    if (value > 0) SCORE += value;
+    if (mPlatforms.front()->GetHitBox().y < -WINDOW_HEIGHT) mrProgramQuit = true;
 }
 
 int Field::GetRandomX() {

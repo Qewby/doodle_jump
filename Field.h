@@ -12,7 +12,7 @@ extern int SCORE;
 
 class Field : public IDrawable {
 public:
-    Field();
+    Field(bool& quit);
     ~Field();
 
     void Draw(Renderer &renderer) override;
@@ -26,6 +26,8 @@ private:
     PlatformFactory mFactory;
     const int mcStep;
     int mLastPosition;
+
+    bool& mrProgramQuit;
 };
 
 
