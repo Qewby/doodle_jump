@@ -10,6 +10,8 @@ public:
 
     bool CollisionCallback(bool isCollided) override;
     void Draw(Renderer &renderer) override;
+
+    static SDL_Texture *spPlatformTexture;
 };
 
 
