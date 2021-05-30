@@ -14,6 +14,8 @@ Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH
 
     mHorizontalSpeed = 0;
     Jump();
+
+    mpDoodleTexture = nullptr;
 }
 
 Doodle::~Doodle() {
@@ -21,14 +23,12 @@ Doodle::~Doodle() {
 }
 
 void Doodle::Draw(Renderer &renderer) {
-    static bool firstDraw = true;
-    if (firstDraw) {
+    if (!mpDoodleTexture) {
         SDL_Surface *pSurface = IMG_Load("ninja.png");
         if (pSurface) {
             mpDoodleTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
             SDL_FreeSurface(pSurface);
         }
-        firstDraw = false;
     }
 
     static SDL_RendererFlip flip = SDL_FLIP_NONE;
