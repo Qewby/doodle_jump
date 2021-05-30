@@ -8,7 +8,7 @@ PlatformFactory::~PlatformFactory() {
 
 }
 
-Platform* PlatformFactory::createPlatform(int x, int y) {
+Platform* PlatformFactory::CreatePlatform(int x, int y) {
     std::random_device randomizer{};
     Platform *newPlatform = nullptr;
     while (!newPlatform) {

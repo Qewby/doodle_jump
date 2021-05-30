@@ -21,9 +21,6 @@ Doodle::~Doodle() {
 }
 
 void Doodle::Draw(Renderer &renderer) {
-    mTextureHitBox.x = mHitBox.x;
-    mTextureHitBox.y = mHitBox.y;
-
     static bool firstDraw = true;
     if (firstDraw) {
         SDL_Surface *pSurface = IMG_Load("ninja.png");
@@ -33,7 +30,28 @@ void Doodle::Draw(Renderer &renderer) {
         }
         firstDraw = false;
     }
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpDoodleTexture, NULL, &mTextureHitBox);
+
+    static SDL_RendererFlip flip = SDL_FLIP_NONE;
+    if (gKeyStatesMap["right"] && !gKeyStatesMap["left"]) {
+        flip = SDL_FLIP_NONE;
+
+    }
+    else if (!gKeyStatesMap["right"] && gKeyStatesMap["left"]) {
+        flip = SDL_FLIP_HORIZONTAL;
+    }
+    if (flip == SDL_FLIP_NONE) {
+        mTextureHitBox.x = mHitBox.x;
+    }
+    else {
+        mTextureHitBox.x = mHitBox.x - (mTextureHitBox.w - mHitBox.w);
+    }
+    mTextureHitBox.y = mHitBox.y;
+    /*SDL_SetRenderDrawColor(renderer.GetRawRenderer(), 255, 0, 0, 255);
+    SDL_RenderFillRect(renderer.GetRawRenderer(), &mTextureHitBox);
+    SDL_SetRenderDrawColor(renderer.GetRawRenderer(), 0, 0, 255, 255);
+    SDL_RenderFillRect(renderer.GetRawRenderer(), &mHitBox);*/
+    SDL_RenderCopyEx(renderer.GetRawRenderer(), mpDoodleTexture, NULL,
+                     &mTextureHitBox, 0, NULL, flip);
 }
 
 SDL_Rect& Doodle::GetHitBox() {

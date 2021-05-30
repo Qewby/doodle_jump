@@ -11,7 +11,7 @@ public:
     PlatformFactory();
     ~PlatformFactory();
 
-    Platform* createPlatform(int x, int y);
+    Platform* CreatePlatform(int x, int y);
 private:
     int mCountEmptyInRaw;
 };

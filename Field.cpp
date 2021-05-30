@@ -5,7 +5,7 @@ Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgram
     mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
     mLastPosition -= mcStep;
     while (mLastPosition >= -mcStep) {
-        mPlatforms.push_front(mFactory.createPlatform(GetRandomX(), mLastPosition));
+        mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
         mLastPosition -= mcStep;
     }
 }
@@ -35,7 +35,7 @@ void Field::Shift(int value) {
             Platform* toDelete = mPlatforms.back();
             mPlatforms.pop_back();
             delete toDelete;
-            mPlatforms.push_front(mFactory.createPlatform(GetRandomX(), mLastPosition));
+            mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
             mLastPosition -= mcStep;
         }
     }
