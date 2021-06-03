@@ -6,10 +6,10 @@ ScoreLine::ScoreLine() {
     mLineHitBox.w = WINDOW_WIDTH;
     mLineHitBox.h = WINDOW_HEIGHT * 0.035;
 
-    mpFont = TTF_OpenFont("arial.ttf", 25);
+    mpFont = TTF_OpenFont("font.ttf", 80);
 
     mTextHitBox.h = mLineHitBox.h;
-    mTextHitBox.w = mLineHitBox.h * 0.4 * mcMaxScoreLength;
+    mTextHitBox.w = mLineHitBox.h * 0.4 * gcMaxScoreLength;
     mTextHitBox.x = mLineHitBox.h / 2;
     mTextHitBox.y = 0;
 }
@@ -25,11 +25,11 @@ void ScoreLine::Draw(Renderer &renderer) {
     SDL_RenderFillRect(renderer.GetRawRenderer(), &mLineHitBox);
 
     std::string scoreText = std::to_string(SCORE);
-    int emptySize = mcMaxScoreLength - scoreText.length();
+    int emptySize = gcMaxScoreLength - scoreText.length();
     for (int i = 0; i < emptySize; i++) {
         scoreText += " ";
     }
-    mpSurface = TTF_RenderText_Solid(mpFont, scoreText.c_str(), {255, 0, 0});
+    mpSurface = TTF_RenderText_Solid(mpFont, scoreText.c_str(), {0, 0, 0});
     mpTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), mpSurface);
     SDL_RenderCopy(renderer.GetRawRenderer(), mpTexture, NULL, &mTextHitBox);
 }

@@ -4,7 +4,8 @@
 #include "IDrawable.h"
 #include "SDL_ttf.h"
 
-extern int SCORE;
+extern const int gcMaxScoreLength;
+extern unsigned long long SCORE;
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;
 
@@ -16,7 +17,6 @@ public:
     void Draw(Renderer &renderer) override;
 
 private:
-    static const int mcMaxScoreLength = 10;
     SDL_Rect mLineHitBox;
     SDL_Rect mTextHitBox;
     TTF_Font *mpFont;
