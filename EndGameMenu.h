@@ -4,6 +4,8 @@
 #include "IDrawable.h"
 #include "Game.h"
 
+extern const int gcMaxScoreLength;
+
 enum class EndMenuButton {
     PlayAgainButton,
     MenuButton,
@@ -17,6 +19,7 @@ public:
     void Draw(Renderer &renderer) override;
 
     EndMenuButton HandleClick();
+    void Update();
 private:
     SDL_Rect mPlayAgainButtonHitBox;
     SDL_Rect mMenuButtonHitBox;
@@ -32,7 +35,13 @@ private:
     SDL_Rect mRecordHitBox;
 
     SDL_Texture *mpScoreLabelTexture;
+    SDL_Texture *mpScoreTexture;
     SDL_Texture *mpRecordLabelTexture;
+    SDL_Texture *mpRecordTexture;
+
+    TTF_Font *mpFont;
+    std::string mScoreText;
+    std::string mRecordText;
 };
 
 
