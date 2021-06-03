@@ -1,7 +1,7 @@
 #include "EventListener.h"
 
 std::map<std::string, bool> gKeyStatesMap{};
-std::pair<int, int> gLeftMouseClickPosition{};
+std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition{};
 std::pair<int, int> gMousePosition{};
 
 EventListener::EventListener(bool& quit) : mQuit(quit) {
@@ -26,7 +26,7 @@ void EventListener::Listen() {
                 break;
             case SDL_MOUSEBUTTONUP:
                 if (mEvent.button.button == SDL_BUTTON_LEFT) {
-                    gLeftMouseClickPosition = {mEvent.button.x, mEvent.button.y};
+                    gLeftMouseClickPosition = {true, {mEvent.button.x, mEvent.button.y}};
                     SDL_Log("%d, %d", gLeftMouseClickPosition.first,
                             gLeftMouseClickPosition.second);
                 }

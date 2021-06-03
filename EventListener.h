@@ -6,7 +6,7 @@
 #include "SDL.h"
 
 extern std::map<std::string, bool> gKeyStatesMap;
-extern std::pair<int, int> gLeftMouseClickPosition;
+extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
 extern std::pair<int, int> gMousePosition;
 
 class EventListener {
