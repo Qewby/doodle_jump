@@ -27,8 +27,6 @@ void EventListener::Listen() {
             case SDL_MOUSEBUTTONUP:
                 if (mEvent.button.button == SDL_BUTTON_LEFT) {
                     gLeftMouseClickPosition = {true, {mEvent.button.x, mEvent.button.y}};
-                    SDL_Log("%d, %d", gLeftMouseClickPosition.first,
-                            gLeftMouseClickPosition.second);
                 }
             case SDL_MOUSEMOTION:
                 gMousePosition = {mEvent.motion.x, mEvent.motion.y};

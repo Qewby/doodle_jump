@@ -25,6 +25,14 @@ private:
     SDL_Texture *mpOnPlayAgainButtonTexture;
     SDL_Texture *mpMenuButtonTexture;
     SDL_Texture *mpOnMenuButtonTexture;
+
+    SDL_Rect mScoreLabelHitBox;
+    SDL_Rect mScoreHitBox;
+    SDL_Rect mRecordLabelHitBox;
+    SDL_Rect mRecordHitBox;
+
+    SDL_Texture *mpScoreLabelTexture;
+    SDL_Texture *mpRecordLabelTexture;
 };
 
 
