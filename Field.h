@@ -8,7 +8,7 @@
 
 #include "platforms/PlatformFactory.h"
 
-extern int SCORE;
+extern unsigned long long SCORE;
 
 class Field : public IDrawable {
 public:

@@ -1,6 +1,8 @@
 #include "Game.h"
 
-int SCORE = 0;
+const int gcMaxScoreLength = 10;
+unsigned long long SCORE = 0;
+unsigned long long  RECORD = 0;
 
 int WINDOW_HEIGHT;
 int WINDOW_WIDTH;
@@ -55,6 +57,8 @@ Game::~Game() {
 
 void Game::Run() {
 
+    EndGameMenu menu{};
+
     ScoreLine line{};
 
     unsigned int t;
@@ -70,14 +74,14 @@ void Game::Run() {
         mpField->Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         line.Draw(*mpRenderer);
+        menu.Draw(*mpRenderer);
         mpRenderer->DrawScreen();
+
+        menu.HandleClick();
 
         t = SDL_GetTicks () - t;
         if (t < 1000 / mScreenRate) {
             SDL_Delay ((1000 / mScreenRate) - t);
         }
     }
-
-
-
 }

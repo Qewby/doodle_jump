@@ -11,8 +11,11 @@
 #include "CollisionHandler.h"
 #include "EventListener.h"
 #include "ScoreLine.h"
+#include "StartMenu.h"
+#include "EndGameMenu.h"
 
-extern int SCORE;
+extern unsigned long long  SCORE;
+extern unsigned long long  RECORD;
 
 extern int WINDOW_HEIGHT;
 extern int WINDOW_WIDTH;
