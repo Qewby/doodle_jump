@@ -39,8 +39,8 @@ void Field::Shift(int value) {
         platformHitBox.y += value;
         if (platformHitBox.y > WINDOW_HEIGHT) {
             Platform* toDelete = mPlatforms.back();
-            mPlatforms.pop_back();
             delete toDelete;
+            mPlatforms.pop_back();
             mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
             mLastPosition -= mcStep;
         }
@@ -55,12 +55,15 @@ int Field::GetRandomX() {
 }
 
 void Field::Clear() {
-    for (auto platform : mPlatforms) {
-        delete platform;
+    while (mPlatforms.size()) {
+        Platform *pPlatform = mPlatforms.at(0);
+        delete pPlatform;
+        mPlatforms.pop_front();
     }
 }
 
 void Field::Refill() {
+    Clear();
     mLastPosition = WINDOW_HEIGHT - mcStep;
     mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
     mLastPosition -= mcStep;
