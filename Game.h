@@ -27,17 +27,18 @@ public:
     Game(std::string name, bool isFullScreen);
     ~Game();
     void Run();
-
+    void Play();
+    void UpdateRecord();
 private:
     Doodle *mpDoodle;
     Renderer *mpRenderer;
     Window *mpWindow;
     CollisionHandler *mpCollisionHandler;
     Field *mpField;
+    ScoreLine *mpScoreLine;
+    EndGameMenu *mpEndMenu;
+    StartMenu *mpStartMenu;
     EventListener mListener;
-    StartMenu mStartMenu;
-    EndGameMenu mEndMenu;
-    ScoreLine mScoreLine;
     int mScreenHeight;
     int mScreenWidth;
     int mWindowHeight;

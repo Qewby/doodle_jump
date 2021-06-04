@@ -39,15 +39,19 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     mpField = new Field(mLose);
     mpDoodle = new Doodle(*mpField);
     mpCollisionHandler = new CollisionHandler(*mpField, *mpDoodle);
-    mStartMenu = {};
-    mEndMenu = {};
-    mScoreLine = {};
+
+    mpScoreLine = new ScoreLine();
+    mpStartMenu = new StartMenu();
+    mpEndMenu = new EndGameMenu();
 
     mLose = false;
     mQuit = false;
 }
 
 Game::~Game() {
+    delete mpEndMenu;
+    delete mpStartMenu;
+    delete mpScoreLine;
     delete mpCollisionHandler;
     delete mpDoodle;
     delete mpField;
@@ -59,33 +63,75 @@ Game::~Game() {
 
 void Game::Run() {
 
-    EndGameMenu menu{};
-
-    ScoreLine line{};
-
-    mpDoodle->Respawn();
-
     unsigned int t;
     while(!mQuit)
     {
         t = SDL_GetTicks();
+        mpRenderer->ClearScreen();
 
         mListener.Listen();
-        mpDoodle->Move();
-        mpCollisionHandler->Handle();
-
-        mpRenderer->ClearScreen();
         mpField->Draw(*mpRenderer);
-        mpDoodle->Draw(*mpRenderer);
-        line.Draw(*mpRenderer);
-        mEndMenu.Draw(*mpRenderer);
+        if (mLose) {
+            mpEndMenu->Draw(*mpRenderer);
+            switch (mpEndMenu->HandleClick()) {
+                case EndMenuButton::MenuButton:
+                    mLose = false;
+                    break;
+                case EndMenuButton::PlayAgainButton:
+                    mLose = false;
+                    Play();
+                    break;
+            }
+        }
+        else {
+            mpStartMenu->Draw(*mpRenderer);
+            switch (mpStartMenu->HandleClick()) {
+                case StartMenuButton::ExitButton:
+                    mQuit = true;
+                    break;
+                case StartMenuButton::PlayButton:
+                    Play();
+                    break;
+            }
+        }
+
         mpRenderer->DrawScreen();
-
-        mStartMenu.HandleClick();
-
         t = SDL_GetTicks () - t;
         if (t < 1000 / mScreenRate) {
             SDL_Delay ((1000 / mScreenRate) - t);
         }
     }
+}
+
+void Game::Play() {
+    SCORE = 0;
+    mpField->Refill();
+    mpDoodle->Respawn();
+
+    unsigned int t;
+    while (!mLose && !mQuit) {
+        t = SDL_GetTicks();
+        mpRenderer->ClearScreen();
+
+        mListener.Listen();
+        mpField->Draw(*mpRenderer);
+        mpDoodle->Draw(*mpRenderer);
+        mpScoreLine->Draw(*mpRenderer);
+        mpDoodle->Move();
+        mpCollisionHandler->Handle();
+
+        mpRenderer->DrawScreen();
+        t = SDL_GetTicks () - t;
+        if (t < 1000 / mScreenRate) {
+            SDL_Delay ((1000 / mScreenRate) - t);
+        }
+    }
+
+    mpField->Clear();
+    UpdateRecord();
+    mpEndMenu->Update();
+}
+
+void Game::UpdateRecord() {
+    if (SCORE > RECORD) RECORD = SCORE;
 }
