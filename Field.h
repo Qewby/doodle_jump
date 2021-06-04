@@ -18,6 +18,8 @@ public:
     void Draw(Renderer &renderer) override;
     std::deque<Platform*>& GetPlatforms();
     void Shift(int value);
+    void Clear();
+    void Refill();
 private:
     int GetRandomX();
 

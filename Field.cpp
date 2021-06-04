@@ -1,25 +1,17 @@
 #include "Field.h"
 
 Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgramQuit(quit) {
-    mLastPosition = WINDOW_HEIGHT - mcStep;
-    mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
-    mLastPosition -= mcStep;
-    while (mLastPosition >= -mcStep) {
-        mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
-        mLastPosition -= mcStep;
-    }
-
     mHitBox.x = 0;
     mHitBox.y = 0;
     mHitBox.h = WINDOW_HEIGHT;
     mHitBox.w = WINDOW_WIDTH;
     mpFieldTexture = nullptr;
+
+    Refill();
 }
 
 Field::~Field() {
-    for (auto platform : mPlatforms) {
-        delete platform;
-    }
+    Clear();
 }
 
 void Field::Draw(Renderer &renderer) {
@@ -61,4 +53,20 @@ void Field::Shift(int value) {
 int Field::GetRandomX() {
     std::random_device randomizer{};
     return randomizer() % static_cast<int>(WINDOW_WIDTH * 0.83);
+}
+
+void Field::Clear() {
+    for (auto platform : mPlatforms) {
+        delete platform;
+    }
+}
+
+void Field::Refill() {
+    mLastPosition = WINDOW_HEIGHT - mcStep;
+    mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
+    mLastPosition -= mcStep;
+    while (mLastPosition >= -mcStep) {
+        mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));
+        mLastPosition -= mcStep;
+    }
 }
