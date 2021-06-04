@@ -6,7 +6,7 @@
 class SimplePlatform : public Platform {
 public:
     SimplePlatform(int x, int y);
-    ~SimplePlatform();
+    virtual ~SimplePlatform();
 
     bool CollisionCallback(bool isCollided) override;
     void Draw(Renderer &renderer) override;

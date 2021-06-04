@@ -6,7 +6,7 @@
 class EmptyPlatform : public Platform {
 public:
     EmptyPlatform(int x, int y);
-    ~EmptyPlatform();
+    virtual ~EmptyPlatform();
 
     bool CollisionCallback(bool isCollided) override;
     void Draw(Renderer &renderer) override;
