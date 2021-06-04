@@ -12,6 +12,7 @@ Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgram
 
 Field::~Field() {
     Clear();
+    SDL_DestroyTexture(mpFieldTexture);
 }
 
 void Field::Draw(Renderer &renderer) {

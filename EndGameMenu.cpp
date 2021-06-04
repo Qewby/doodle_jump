@@ -38,7 +38,17 @@ EndGameMenu::EndGameMenu() {
 }
 
 EndGameMenu::~EndGameMenu() {
+    SDL_DestroyTexture(mpPlayAgainButtonTexture);
+    SDL_DestroyTexture(mpOnPlayAgainButtonTexture);
+    SDL_DestroyTexture(mpMenuButtonTexture);
+    SDL_DestroyTexture(mpOnMenuButtonTexture);
 
+    SDL_DestroyTexture(mpScoreLabelTexture);
+    SDL_DestroyTexture(mpScoreTexture);
+    SDL_DestroyTexture(mpRecordLabelTexture);
+    SDL_DestroyTexture(mpRecordTexture);
+
+    TTF_CloseFont(mpFont);
 }
 void EndGameMenu::Draw(Renderer &renderer) {
     if (!mpPlayAgainButtonTexture || !mpOnPlayAgainButtonTexture || !mpMenuButtonTexture ||

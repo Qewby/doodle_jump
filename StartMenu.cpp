@@ -18,7 +18,10 @@ StartMenu::StartMenu() {
 }
 
 StartMenu::~StartMenu() {
-
+    SDL_DestroyTexture(mpPlayButtonTexture);
+    SDL_DestroyTexture(mpOnPlayButtonTexture);
+    SDL_DestroyTexture(mpExitButtonTexture);
+    SDL_DestroyTexture(mpOnExitButtonTexture);
 }
 void StartMenu::Draw(Renderer &renderer) {
     if (!mpPlayButtonTexture || !mpOnPlayButtonTexture || !mpExitButtonTexture || !mpOnExitButtonTexture) {

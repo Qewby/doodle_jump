@@ -2,7 +2,12 @@
 #define DOODLE_JUMP_STARTMENU_H
 
 #include "IDrawable.h"
-#include "Game.h"
+
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
+
+extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
+extern std::pair<int, int> gMousePosition;
 
 enum class StartMenuButton {
     PlayButton,

@@ -2,9 +2,18 @@
 #define DOODLE_JUMP_ENDGAMEMENU_H
 
 #include "IDrawable.h"
-#include "Game.h"
+#include "SDL_ttf.h"
+
+extern unsigned long long  SCORE;
+extern unsigned long long  RECORD;
+
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
 
 extern const int gcMaxScoreLength;
+
+extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
+extern std::pair<int, int> gMousePosition;
 
 enum class EndMenuButton {
     PlayAgainButton,
