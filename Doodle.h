@@ -17,6 +17,7 @@ public:
     SDL_Rect& GetHitBox();
     void Move();
     void Jump();
+    void Respawn();
     bool isFalling();
 private:
     SDL_Rect mHitBox;

@@ -6,14 +6,9 @@ Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH
     {
     mHitBox.h = WINDOW_HEIGHT * 0.07;
     mHitBox.w = mHitBox.h * 4 / 5;
-    mHitBox.x = (WINDOW_WIDTH - mHitBox.w) / 2;
-    mHitBox.y = WINDOW_HEIGHT - mHitBox.h - 1;
 
     mTextureHitBox.h = mHitBox.h;
     mTextureHitBox.w = mHitBox.h;
-
-    mHorizontalSpeed = 0;
-    Jump();
 
     mpDoodleTexture = nullptr;
 }
@@ -98,4 +93,12 @@ void Doodle::Jump() {
 
 bool Doodle::isFalling() {
     return mVerticalSpeed >= 0;
+}
+
+void Doodle::Respawn() {
+    mHitBox.x = (WINDOW_WIDTH - mHitBox.w) / 2;
+    mHitBox.y = WINDOW_HEIGHT - mHitBox.h - 1;
+
+    mHorizontalSpeed = 0;
+    Jump();
 }
