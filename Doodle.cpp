@@ -14,7 +14,7 @@ Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH
 }
 
 Doodle::~Doodle() {
-
+    SDL_DestroyTexture(mpDoodleTexture);
 }
 
 void Doodle::Draw(Renderer &renderer) {

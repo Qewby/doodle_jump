@@ -35,12 +35,16 @@ private:
     CollisionHandler *mpCollisionHandler;
     Field *mpField;
     EventListener mListener;
+    StartMenu mStartMenu;
+    EndGameMenu mEndMenu;
+    ScoreLine mScoreLine;
     int mScreenHeight;
     int mScreenWidth;
     int mWindowHeight;
     int mWindowWidth;
     int mScreenRate;
     bool mQuit;
+    bool mLose;
 };
 
 

@@ -6,8 +6,6 @@ Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgram
     mHitBox.h = WINDOW_HEIGHT;
     mHitBox.w = WINDOW_WIDTH;
     mpFieldTexture = nullptr;
-
-    Refill();
 }
 
 Field::~Field() {

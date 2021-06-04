@@ -36,12 +36,14 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
 
     mpRenderer = new Renderer(*mpWindow);
 
-    mpField = new Field(mQuit);
-
+    mpField = new Field(mLose);
     mpDoodle = new Doodle(*mpField);
-
     mpCollisionHandler = new CollisionHandler(*mpField, *mpDoodle);
+    mStartMenu = {};
+    mEndMenu = {};
+    mScoreLine = {};
 
+    mLose = false;
     mQuit = false;
 }
 
@@ -61,6 +63,8 @@ void Game::Run() {
 
     ScoreLine line{};
 
+    mpDoodle->Respawn();
+
     unsigned int t;
     while(!mQuit)
     {
@@ -74,10 +78,10 @@ void Game::Run() {
         mpField->Draw(*mpRenderer);
         mpDoodle->Draw(*mpRenderer);
         line.Draw(*mpRenderer);
-        menu.Draw(*mpRenderer);
+        mEndMenu.Draw(*mpRenderer);
         mpRenderer->DrawScreen();
 
-        menu.HandleClick();
+        mStartMenu.HandleClick();
 
         t = SDL_GetTicks () - t;
         if (t < 1000 / mScreenRate) {
