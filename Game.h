@@ -2,6 +2,7 @@
 #define DOODLE_JUMP_GAME_H
 
 #include <iostream>
+#include <fstream>
 
 #include "SDL.h"
 #include "SDL_ttf.h"

@@ -34,6 +34,16 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     WINDOW_HEIGHT = mWindowHeight;
     WINDOW_WIDTH = mWindowWidth;
 
+    std::ifstream record_file;
+    record_file.open("assets/data/record", std::ios::in);
+    if (!record_file) {
+        RECORD = 0;
+    }
+    else {
+        record_file >> RECORD;
+        record_file.close();
+    }
+
     mpRenderer = new Renderer(*mpWindow);
 
     mpField = new Field(mLose);
@@ -95,6 +105,7 @@ void Game::Run() {
             }
         }
 
+        mListener.Listen();
         mpRenderer->DrawScreen();
         t = SDL_GetTicks () - t;
         if (t < 1000 / mScreenRate) {
@@ -119,6 +130,7 @@ void Game::Play() {
         mpScoreLine->Draw(*mpRenderer);
         mpDoodle->Move();
         mpCollisionHandler->Handle();
+        mListener.Listen();
 
         mpRenderer->DrawScreen();
         t = SDL_GetTicks () - t;
@@ -133,5 +145,13 @@ void Game::Play() {
 }
 
 void Game::UpdateRecord() {
-    if (SCORE > RECORD) RECORD = SCORE;
+    if (SCORE > RECORD) {
+        RECORD = SCORE;
+        std::ofstream record_file;
+        record_file.open("assets/data/record", std::ios::out);
+        if (record_file) {
+            record_file << RECORD;
+            record_file.close();
+        }
+    }
 }
