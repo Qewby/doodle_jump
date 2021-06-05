@@ -6,7 +6,7 @@ ScoreLine::ScoreLine() {
     mLineHitBox.w = WINDOW_WIDTH;
     mLineHitBox.h = WINDOW_HEIGHT * 0.035;
 
-    mpFont = TTF_OpenFont("font.ttf", 80);
+    mpFont = TTF_OpenFont("assets/fonts/font.ttf", 80);
 
     mTextHitBox.h = mLineHitBox.h;
     mTextHitBox.w = mLineHitBox.h * 0.4 * gcMaxScoreLength;

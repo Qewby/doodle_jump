@@ -27,28 +27,28 @@ void StartMenu::Draw(Renderer &renderer) {
     if (!mpPlayButtonTexture || !mpOnPlayButtonTexture || !mpExitButtonTexture || !mpOnExitButtonTexture) {
         SDL_Surface *pSurface;
         if (!mpPlayButtonTexture) {
-            pSurface = IMG_Load("play.png");
+            pSurface = IMG_Load("assets/textures/play.png");
             if (pSurface) {
                 mpPlayButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnPlayButtonTexture) {
-            pSurface = IMG_Load("play_on.png");
+            pSurface = IMG_Load("assets/textures/play_on.png");
             if (pSurface) {
                 mpOnPlayButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpExitButtonTexture) {
-            pSurface = IMG_Load("exit.png");
+            pSurface = IMG_Load("assets/textures/exit.png");
             if (pSurface) {
                 mpExitButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnExitButtonTexture) {
-            pSurface = IMG_Load("exit_on.png");
+            pSurface = IMG_Load("assets/textures/exit_on.png");
             if (pSurface) {
                 mpOnExitButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);

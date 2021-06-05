@@ -19,7 +19,7 @@ Doodle::~Doodle() {
 
 void Doodle::Draw(Renderer &renderer) {
     if (!mpDoodleTexture) {
-        SDL_Surface *pSurface = IMG_Load("ninja.png");
+        SDL_Surface *pSurface = IMG_Load("assets/textures/ninja.png");
         if (pSurface) {
             mpDoodleTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
             SDL_FreeSurface(pSurface);

@@ -15,3 +15,9 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
+
+add_custom_target(copy_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}/assets
+        )
+add_dependencies(${PROJECT_NAME} copy_assets)
+

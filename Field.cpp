@@ -15,7 +15,7 @@ Field::~Field() {
 
 void Field::Draw(Renderer &renderer) {
     if (!mpFieldTexture) {
-        SDL_Surface *pSurface = IMG_Load("background.png");
+        SDL_Surface *pSurface = IMG_Load("assets/textures/background.png");
         if (pSurface) {
             mpFieldTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
             SDL_FreeSurface(pSurface);

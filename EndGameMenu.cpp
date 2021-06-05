@@ -32,7 +32,7 @@ EndGameMenu::EndGameMenu() {
     mpRecordLabelTexture = nullptr;
     mpRecordTexture = nullptr;
 
-    mpFont = TTF_OpenFont("font.ttf", 200);
+    mpFont = TTF_OpenFont("assets/fonts/font.ttf", 200);
 
     Update();
 }
@@ -56,42 +56,42 @@ void EndGameMenu::Draw(Renderer &renderer) {
             !mpRecordTexture) {
         SDL_Surface *pSurface;
         if (!mpPlayAgainButtonTexture) {
-            pSurface = IMG_Load("play_again.png");
+            pSurface = IMG_Load("assets/textures/play_again.png");
             if (pSurface) {
                 mpPlayAgainButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnPlayAgainButtonTexture) {
-            pSurface = IMG_Load("play_again_on.png");
+            pSurface = IMG_Load("assets/textures/play_again_on.png");
             if (pSurface) {
                 mpOnPlayAgainButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpMenuButtonTexture) {
-            pSurface = IMG_Load("menu.png");
+            pSurface = IMG_Load("assets/textures/menu.png");
             if (pSurface) {
                 mpMenuButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnMenuButtonTexture) {
-            pSurface = IMG_Load("menu_on.png");
+            pSurface = IMG_Load("assets/textures/menu_on.png");
             if (pSurface) {
                 mpOnMenuButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpScoreLabelTexture) {
-            pSurface = IMG_Load("score_label.png");
+            pSurface = IMG_Load("assets/textures/score_label.png");
             if (pSurface) {
                 mpScoreLabelTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpRecordLabelTexture) {
-            pSurface = IMG_Load("record_label.png");
+            pSurface = IMG_Load("assets/textures/record_label.png");
             if (pSurface) {
                 mpRecordLabelTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
