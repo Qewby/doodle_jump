@@ -8,8 +8,8 @@ public:
     MovingPlatform(int x, int y);
     virtual ~MovingPlatform();
 
-    bool CollisionCallback(bool isCollided) override;
-    void Draw(Renderer &renderer) override;
+    virtual bool CollisionCallback(bool isCollided) override;
+    virtual void Draw(Renderer &renderer) override;
 
     static void SetSpeed(int speed);
 
