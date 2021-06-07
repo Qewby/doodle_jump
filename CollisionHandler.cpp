@@ -20,10 +20,9 @@ void CollisionHandler::Handle() {
             doodleHitBox.x < platformHitBox.x + platformHitBox.w)
         {
             isCollided = true;
-            if (platform->CollisionCallback(isCollided)) {
-                mrDoodle.Jump();
-                return;
-            }
+        }
+        if (platform->CollisionCallback(isCollided)) {
+            mrDoodle.Jump();
         }
     }
 }
