@@ -22,5 +22,5 @@ void SimplePlatform::Draw(Renderer &renderer) {
 }
 
 bool SimplePlatform::CollisionCallback(bool isCollided) {
-    return true;
+    return isCollided;
 }
