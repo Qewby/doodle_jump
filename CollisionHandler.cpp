@@ -13,7 +13,7 @@ void CollisionHandler::Handle() {
     for (auto platform : mrField.GetPlatforms()) {
         bool isCollided = false;
         SDL_Rect platformHitBox = platform->GetHitBox();
-        if (mrDoodle.isFalling() &&
+        if (mrDoodle.isFalling() && platform->isVisible() &&
             platformHitBox.y - doodleHitBox.y < doodleHitBox.h &&
             platformHitBox.y - doodleHitBox.y > doodleHitBox.h - platformHitBox.h * 0.8 &&
             doodleHitBox.x + doodleHitBox.w > platformHitBox.x &&

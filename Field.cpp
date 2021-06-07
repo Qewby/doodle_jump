@@ -24,7 +24,9 @@ void Field::Draw(Renderer &renderer) {
     SDL_RenderCopy(renderer.GetRawRenderer(), mpFieldTexture, NULL, &mHitBox);
 
     for (auto platform : mPlatforms) {
-        platform->Draw(renderer);
+        if (platform->isVisible()) {
+            platform->Draw(renderer);
+        }
     }
 }
 
