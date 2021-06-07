@@ -5,6 +5,9 @@
 
 #include "SimplePlatform.h"
 #include "EmptyPlatform.h"
+#include "MovingPlatform.h"
+#include "OneTimePlatform.h"
+#include "OneTimeMovingPlatform.h"
 
 class PlatformFactory {
 public:

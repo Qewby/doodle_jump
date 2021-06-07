@@ -7,8 +7,8 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image)
 find_package(SDL2 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 14)
-set (SOURCE_FILES main.cpp Window.cpp Window.h Game.cpp Game.h Renderer.cpp
-        Renderer.h IDrawable.h Doodle.cpp Doodle.h EventListener.cpp EventListener.h platforms/Platform.h platforms/SimplePlatform.cpp platforms/SimplePlatform.h platforms/Platform.cpp Field.cpp Field.h CollisionHandler.cpp CollisionHandler.h platforms/PlatformFactory.cpp platforms/PlatformFactory.h platforms/EmptyPlatform.cpp platforms/EmptyPlatform.h ScoreLine.cpp ScoreLine.h StartMenu.cpp StartMenu.h EndGameMenu.cpp EndGameMenu.h platforms/MovingPlatform.cpp platforms/MovingPlatform.h platforms/OneTimePlatform.cpp platforms/OneTimePlatform.h platforms/OneTimeMovingPlatform.cpp platforms/OneTimeMovingPlatform.h)
+set (SOURCE_FILES src/main.cpp src/Window.cpp src/Window.h src/Game.cpp src/Game.h src/Renderer.cpp
+        src/Renderer.h src/IDrawable.h src/Doodle.cpp src/Doodle.h src/EventListener.cpp src/EventListener.h src/platforms/Platform.h src/platforms/SimplePlatform.cpp src/platforms/SimplePlatform.h src/platforms/Platform.cpp src/Field.cpp src/Field.h src/CollisionHandler.cpp src/CollisionHandler.h src/platforms/PlatformFactory.cpp src/platforms/PlatformFactory.h src/platforms/EmptyPlatform.cpp src/platforms/EmptyPlatform.h src/ScoreLine.cpp src/ScoreLine.h src/StartMenu.cpp src/StartMenu.h src/EndGameMenu.cpp src/EndGameMenu.h src/platforms/MovingPlatform.cpp src/platforms/MovingPlatform.h src/platforms/OneTimePlatform.cpp src/platforms/OneTimePlatform.h src/platforms/OneTimeMovingPlatform.cpp src/platforms/OneTimeMovingPlatform.h)
 set (PROJECT_NAME doodle_jump)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
