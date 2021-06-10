@@ -7,7 +7,7 @@ unsigned long long  RECORD = 0;
 int WINDOW_HEIGHT;
 int WINDOW_WIDTH;
 
-Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
+Game::Game(std::string name, bool isFullScreen) : mListener(mQuit), mRecordTable() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "Can't init SDL: " << SDL_GetError() << std::endl;
         throw std::bad_alloc();
@@ -34,15 +34,7 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     WINDOW_HEIGHT = mWindowHeight;
     WINDOW_WIDTH = mWindowWidth;
 
-    std::ifstream record_file;
-    record_file.open("assets/data/record", std::ios::in);
-    if (!record_file) {
-        RECORD = 0;
-    }
-    else {
-        record_file >> RECORD;
-        record_file.close();
-    }
+    mRecordTable.ReadTable();
 
     mpRenderer = new Renderer(*mpWindow);
 
@@ -145,13 +137,8 @@ void Game::Play() {
 }
 
 void Game::UpdateRecord() {
-    if (SCORE > RECORD) {
-        RECORD = SCORE;
-        std::ofstream record_file;
-        record_file.open("assets/data/record", std::ios::out);
-        if (record_file) {
-            record_file << RECORD;
-            record_file.close();
-        }
+    static std::string name = "name";
+    if (mRecordTable.IsRecord()) {
+        mRecordTable.UpdateTable(name);
     }
 }
