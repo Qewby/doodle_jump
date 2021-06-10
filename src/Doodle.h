@@ -5,9 +5,6 @@
 #include "Field.h"
 #include "EventListener.h"
 
-extern int WINDOW_WIDTH;
-extern int WINDOW_HEIGHT;
-
 class Doodle : public IDrawable {
 public:
     Doodle(Field& field);

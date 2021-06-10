@@ -3,6 +3,9 @@
 
 #include "Renderer.h"
 
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
+
 class IDrawable {
 public:
     IDrawable() {};

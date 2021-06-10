@@ -7,9 +7,6 @@
 extern unsigned long long  SCORE;
 extern unsigned long long  RECORD;
 
-extern int WINDOW_HEIGHT;
-extern int WINDOW_WIDTH;
-
 extern const int gcMaxScoreLength;
 
 extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;

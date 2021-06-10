@@ -3,9 +3,6 @@
 
 #include "../IDrawable.h"
 
-extern int WINDOW_HEIGHT;
-extern int WINDOW_WIDTH;
-
 class Platform : public IDrawable {
 public:
     Platform(int x, int y);

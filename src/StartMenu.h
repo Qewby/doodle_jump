@@ -3,9 +3,6 @@
 
 #include "IDrawable.h"
 
-extern int WINDOW_HEIGHT;
-extern int WINDOW_WIDTH;
-
 extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
 extern std::pair<int, int> gMousePosition;
 

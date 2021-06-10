@@ -6,8 +6,6 @@
 
 extern const int gcMaxScoreLength;
 extern unsigned long long SCORE;
-extern int WINDOW_HEIGHT;
-extern int WINDOW_WIDTH;
 
 class ScoreLine : public IDrawable{
 public:
