@@ -102,6 +102,5 @@ StartMenuButton StartMenu::HandleClick() {
         clickedButton = StartMenuButton::ExitButton;
     }
     gLeftMouseClickPosition.first = false;
-    SDL_Log("%d", static_cast<int>(clickedButton));
     return clickedButton;
 }
