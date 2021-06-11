@@ -134,3 +134,17 @@ void RecordTable::Draw(Renderer &renderer) {
     }
     SDL_RenderCopy(renderer.GetRawRenderer(), pPlayTexture, NULL, &mBackButtonHitBox);
 }
+
+bool RecordTable::HandleClick() {
+    bool isClicked = false;
+    if (gLeftMouseClickPosition.first == false) return isClicked;
+    if (gLeftMouseClickPosition.second.first - mBackButtonHitBox.x >= 0 &&
+        gLeftMouseClickPosition.second.first - mBackButtonHitBox.x <= mBackButtonHitBox.w &&
+        gLeftMouseClickPosition.second.second - mBackButtonHitBox.y >= 0 &&
+        gLeftMouseClickPosition.second.second - mBackButtonHitBox.y <= mBackButtonHitBox.h) {
+
+        isClicked = true;
+    }
+    gLeftMouseClickPosition.first = false;
+    return isClicked;
+}

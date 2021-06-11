@@ -24,6 +24,7 @@ public:
     bool IsRecord();
 
     void Draw(Renderer &renderer) override;
+    bool HandleClick();
 private:
     struct Record {
         std::string nickname;
