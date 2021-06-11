@@ -9,6 +9,7 @@ extern std::pair<int, int> gMousePosition;
 enum class StartMenuButton {
     PlayButton,
     ExitButton,
+    RecordsButton,
     NoneButton
 };
 
@@ -21,10 +22,13 @@ public:
     StartMenuButton HandleClick();
 private:
     SDL_Rect mPlayButtonHitBox;
+    SDL_Rect mRecordsButtonHitBox;
     SDL_Rect mExitButtonHitBox;
 
     SDL_Texture *mpPlayButtonTexture;
     SDL_Texture *mpOnPlayButtonTexture;
+    SDL_Texture *mpRecordsButtonTexture;
+    SDL_Texture *mpOnRecordsButtonTexture;
     SDL_Texture *mpExitButtonTexture;
     SDL_Texture *mpOnExitButtonTexture;
 };
