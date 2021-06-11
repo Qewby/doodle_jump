@@ -30,6 +30,7 @@ public:
     ~Game();
     void Run();
     void Play();
+    void WatchRecordTable();
     void UpdateRecord();
 private:
     Doodle *mpDoodle;
@@ -41,7 +42,7 @@ private:
     EndGameMenu *mpEndMenu;
     StartMenu *mpStartMenu;
     EventListener mListener;
-    RecordTable mRecordTable;
+    RecordTable *mpRecordTable;
     int mScreenHeight;
     int mScreenWidth;
     int mWindowHeight;

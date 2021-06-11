@@ -7,7 +7,7 @@ unsigned long long  RECORD = 0;
 int WINDOW_HEIGHT;
 int WINDOW_WIDTH;
 
-Game::Game(std::string name, bool isFullScreen) : mListener(mQuit), mRecordTable() {
+Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "Can't init SDL: " << SDL_GetError() << std::endl;
         throw std::bad_alloc();
@@ -34,8 +34,6 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit), mRecordTable
     WINDOW_HEIGHT = mWindowHeight;
     WINDOW_WIDTH = mWindowWidth;
 
-    mRecordTable.ReadTable();
-
     mpRenderer = new Renderer(*mpWindow);
 
     mpField = new Field(mLose);
@@ -46,11 +44,15 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit), mRecordTable
     mpStartMenu = new StartMenu();
     mpEndMenu = new EndGameMenu();
 
+    mpRecordTable = new RecordTable();
+    mpRecordTable->ReadTable();
+
     mLose = false;
     mQuit = false;
 }
 
 Game::~Game() {
+    delete mpRecordTable;
     delete mpEndMenu;
     delete mpStartMenu;
     delete mpScoreLine;
@@ -90,6 +92,9 @@ void Game::Run() {
             switch (mpStartMenu->HandleClick()) {
                 case StartMenuButton::ExitButton:
                     mQuit = true;
+                    break;
+                case StartMenuButton::RecordsButton:
+                    WatchRecordTable();
                     break;
                 case StartMenuButton::PlayButton:
                     Play();
@@ -138,7 +143,25 @@ void Game::Play() {
 
 void Game::UpdateRecord() {
     static std::string name = "name";
-    if (mRecordTable.IsRecord()) {
-        mRecordTable.UpdateTable(name);
+    if (mpRecordTable->IsRecord()) {
+        mpRecordTable->UpdateTable(name);
+    }
+}
+
+void Game::WatchRecordTable() {
+    unsigned int t;
+    while (!mpRecordTable->HandleClick() && !mQuit) {
+        t = SDL_GetTicks();
+        mpRenderer->ClearScreen();
+
+        mListener.Listen();
+        mpField->Draw(*mpRenderer);
+        mpRecordTable->Draw(*mpRenderer);
+
+        mpRenderer->DrawScreen();
+        t = SDL_GetTicks () - t;
+        if (t < 1000 / mScreenRate) {
+            SDL_Delay ((1000 / mScreenRate) - t);
+        }
     }
 }
