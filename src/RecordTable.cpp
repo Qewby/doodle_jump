@@ -7,8 +7,14 @@ RecordTable::RecordTable() : mTable() {
     mpFont = TTF_OpenFont("assets/fonts/font.ttf", 80);
     mNameHitBox.w = mScoreHitBox.w = WINDOW_WIDTH / 4;
     mNameHitBox.h = mScoreHitBox.h = WINDOW_HEIGHT / 25;
-    mNameHitBox.x = (WINDOW_WIDTH - mNameHitBox.w) / 3;
+    mNameHitBox.x = mBackButtonHitBox.x = (WINDOW_WIDTH - mNameHitBox.w) / 3;
     mScoreHitBox.x = mNameHitBox.x + mNameHitBox.w + scIndent;
+
+    mBackButtonHitBox.w = mBackButtonHitBox.w = WINDOW_WIDTH / 2;
+    mBackButtonHitBox.h = mBackButtonHitBox.h = mBackButtonHitBox.w / 2.5;
+
+    mpBackButtonTexture = nullptr;
+    mpOnBackButtonTexture = nullptr;
 }
 
 RecordTable::~RecordTable() {
@@ -67,6 +73,24 @@ bool RecordTable::IsRecord() {
 }
 
 void RecordTable::Draw(Renderer &renderer) {
+    if (!mpBackButtonTexture || !mpOnBackButtonTexture) {
+        SDL_Surface *pSurface;
+        if (!mpBackButtonTexture) {
+            pSurface = IMG_Load("assets/textures/back.png");
+            if (pSurface) {
+                mpBackButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                SDL_FreeSurface(pSurface);
+            }
+        }
+        if (!mpOnBackButtonTexture) {
+            pSurface = IMG_Load("assets/textures/back_on.png");
+            if (pSurface) {
+                mpOnBackButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                SDL_FreeSurface(pSurface);
+            }
+        }
+    }
+
     mNameHitBox.y = mScoreHitBox.y = (WINDOW_HEIGHT - ((mNameHitBox.h + scIndent) * mTable.size() - scIndent)) / 2;
     for (auto record : mTable) {
         std::string scoreText = std::to_string(record.score);
@@ -95,4 +119,18 @@ void RecordTable::Draw(Renderer &renderer) {
 
         mNameHitBox.y = mScoreHitBox.y = mNameHitBox.y + mNameHitBox.h + scIndent;
     }
+    mBackButtonHitBox.y = mNameHitBox.y + scIndent;
+
+    static SDL_Texture *pPlayTexture = nullptr;
+    if (gMousePosition.first - mBackButtonHitBox.x >= 0 &&
+        gMousePosition.first - mBackButtonHitBox.x <= mBackButtonHitBox.w &&
+        gMousePosition.second - mBackButtonHitBox.y >= 0 &&
+        gMousePosition.second - mBackButtonHitBox.y <= mBackButtonHitBox.h) {
+
+        pPlayTexture = mpOnBackButtonTexture;
+    }
+    else {
+        pPlayTexture = mpBackButtonTexture;
+    }
+    SDL_RenderCopy(renderer.GetRawRenderer(), pPlayTexture, NULL, &mBackButtonHitBox);
 }
