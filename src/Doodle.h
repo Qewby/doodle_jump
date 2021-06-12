@@ -7,10 +7,10 @@
 
 class Doodle : public Drawable {
 public:
-    Doodle(Field& field);
+    Doodle(Field& field, Renderer& renderer);
     ~Doodle();
 
-    void Draw(Renderer& renderer);
+    void Draw() override;
     SDL_Rect& GetHitBox();
     void Move();
     void Jump();

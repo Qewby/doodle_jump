@@ -1,6 +1,6 @@
 #include "ScoreLine.h"
 
-ScoreLine::ScoreLine() {
+ScoreLine::ScoreLine(Renderer& renderer) : Drawable(renderer) {
     mLineHitBox.x = 0;
     mLineHitBox.y = 0;
     mLineHitBox.w = WINDOW_WIDTH;
@@ -20,9 +20,9 @@ ScoreLine::~ScoreLine() {
     TTF_CloseFont(mpFont);
 }
 
-void ScoreLine::Draw(Renderer &renderer) {
-    SDL_SetRenderDrawColor(renderer.GetRawRenderer(), 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer.GetRawRenderer(), &mLineHitBox);
+void ScoreLine::Draw() {
+    SDL_SetRenderDrawColor(mrRenderer.GetRawRenderer(), 255, 255, 255, 255);
+    SDL_RenderFillRect(mrRenderer.GetRawRenderer(), &mLineHitBox);
 
     std::string scoreText = std::to_string(SCORE);
     int emptySize = gcMaxScoreLength - scoreText.length();
@@ -30,6 +30,6 @@ void ScoreLine::Draw(Renderer &renderer) {
         scoreText += " ";
     }
     mpSurface = TTF_RenderText_Solid(mpFont, scoreText.c_str(), {0, 0, 0});
-    mpTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), mpSurface);
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpTexture, NULL, &mTextHitBox);
+    mpTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), mpSurface);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTexture, NULL, &mTextHitBox);
 }

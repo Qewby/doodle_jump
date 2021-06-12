@@ -5,11 +5,11 @@
 
 class EmptyPlatform : public Platform {
 public:
-    EmptyPlatform(int x, int y);
+    EmptyPlatform(int x, int y, Renderer& renderer);
     virtual ~EmptyPlatform();
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 };
 
 

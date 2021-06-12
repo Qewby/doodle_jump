@@ -1,6 +1,6 @@
 #include "PlatformFactory.h"
 
-PlatformFactory::PlatformFactory() {
+PlatformFactory::PlatformFactory(Renderer& renderer) : mrRenderer(renderer) {
     mCountEmptyInRaw = 0;
     MovingPlatform::SetSpeed(2);
 }
@@ -15,12 +15,12 @@ Platform* PlatformFactory::CreatePlatform(int x, int y) {
     while (!newPlatform) {
         switch (randomizer() % 2) {
             case 0:
-                newPlatform = new OneTimeMovingPlatform(x, y);
+                newPlatform = new OneTimeMovingPlatform(x, y, mrRenderer);
                 mCountEmptyInRaw = 0;
                 break;
             case 1:
                 if (mCountEmptyInRaw < 3) {
-                    newPlatform = new MovingPlatform(x, y);
+                    newPlatform = new MovingPlatform(x, y, mrRenderer);
                     mCountEmptyInRaw++;
                 }
                 break;

@@ -9,10 +9,10 @@ extern unsigned long long SCORE;
 
 class ScoreLine : public Drawable{
 public:
-    ScoreLine();
+    ScoreLine(Renderer& renderer);
     ~ScoreLine();
 
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 
 private:
     SDL_Rect mLineHitBox;

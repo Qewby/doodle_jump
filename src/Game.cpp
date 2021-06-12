@@ -36,15 +36,15 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
 
     mpRenderer = new Renderer(*mpWindow);
 
-    mpField = new Field(mLose);
-    mpDoodle = new Doodle(*mpField);
+    mpField = new Field(mLose, *mpRenderer);
+    mpDoodle = new Doodle(*mpField, *mpRenderer);
     mpCollisionHandler = new CollisionHandler(*mpField, *mpDoodle);
 
-    mpScoreLine = new ScoreLine();
-    mpStartMenu = new StartMenu();
-    mpEndMenu = new EndGameMenu();
+    mpScoreLine = new ScoreLine(*mpRenderer);
+    mpStartMenu = new StartMenu(*mpRenderer);
+    mpEndMenu = new EndGameMenu(*mpRenderer);
 
-    mpRecordTable = new RecordTable();
+    mpRecordTable = new RecordTable(*mpRenderer);
     mpRecordTable->ReadTable();
 
     mLose = false;
@@ -74,9 +74,9 @@ void Game::Run() {
         mpRenderer->ClearScreen();
 
         mListener.Listen();
-        mpField->Draw(*mpRenderer);
+        mpField->Draw();
         if (mLose) {
-            mpEndMenu->Draw(*mpRenderer);
+            mpEndMenu->Draw();
             switch (mpEndMenu->HandleClick()) {
                 case EndMenuButton::MenuButton:
                     mLose = false;
@@ -88,7 +88,7 @@ void Game::Run() {
             }
         }
         else {
-            mpStartMenu->Draw(*mpRenderer);
+            mpStartMenu->Draw();
             switch (mpStartMenu->HandleClick()) {
                 case StartMenuButton::ExitButton:
                     mQuit = true;
@@ -122,9 +122,9 @@ void Game::Play() {
         mpRenderer->ClearScreen();
 
         mListener.Listen();
-        mpField->Draw(*mpRenderer);
-        mpDoodle->Draw(*mpRenderer);
-        mpScoreLine->Draw(*mpRenderer);
+        mpField->Draw();
+        mpDoodle->Draw();
+        mpScoreLine->Draw();
         mpDoodle->Move();
         mpCollisionHandler->Handle();
         mListener.Listen();
@@ -155,8 +155,8 @@ void Game::WatchRecordTable() {
         mpRenderer->ClearScreen();
 
         mListener.Listen();
-        mpField->Draw(*mpRenderer);
-        mpRecordTable->Draw(*mpRenderer);
+        mpField->Draw();
+        mpRecordTable->Draw();
 
         mpRenderer->DrawScreen();
         t = SDL_GetTicks () - t;

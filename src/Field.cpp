@@ -1,6 +1,8 @@
 #include "Field.h"
 
-Field::Field(bool& quit) : mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgramQuit(quit) {
+Field::Field(bool& quit, Renderer& renderer) : Drawable(renderer), mFactory(renderer),
+            mcStep(WINDOW_HEIGHT / MAX_PLATFORM_COUNT), mrProgramQuit(quit)
+    {
     mHitBox.x = 0;
     mHitBox.y = 0;
     mHitBox.h = WINDOW_HEIGHT;
@@ -13,19 +15,19 @@ Field::~Field() {
     SDL_DestroyTexture(mpFieldTexture);
 }
 
-void Field::Draw(Renderer &renderer) {
+void Field::Draw() {
     if (!mpFieldTexture) {
         SDL_Surface *pSurface = IMG_Load("assets/textures/background.png");
         if (pSurface) {
-            mpFieldTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            mpFieldTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
             SDL_FreeSurface(pSurface);
         }
     }
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpFieldTexture, NULL, &mHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpFieldTexture, NULL, &mHitBox);
 
     for (auto platform : mPlatforms) {
         if (platform->isVisible()) {
-            platform->Draw(renderer);
+            platform->Draw();
         }
     }
 }
@@ -67,7 +69,7 @@ void Field::Clear() {
 void Field::Refill() {
     Clear();
     mLastPosition = WINDOW_HEIGHT - mcStep;
-    mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition));
+    mPlatforms.push_front(new SimplePlatform(WINDOW_WIDTH * 0.4, mLastPosition, mrRenderer));
     mLastPosition -= mcStep;
     while (mLastPosition >= -mcStep) {
         mPlatforms.push_front(mFactory.CreatePlatform(GetRandomX(), mLastPosition));

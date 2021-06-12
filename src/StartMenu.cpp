@@ -1,6 +1,6 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu() {
+StartMenu::StartMenu(Renderer& renderer) : Drawable(renderer) {
     const int indent = 20;
 
     mPlayButtonHitBox.w = mExitButtonHitBox.w = mRecordsButtonHitBox.w = WINDOW_WIDTH / 2;
@@ -24,49 +24,49 @@ StartMenu::~StartMenu() {
     SDL_DestroyTexture(mpExitButtonTexture);
     SDL_DestroyTexture(mpOnExitButtonTexture);
 }
-void StartMenu::Draw(Renderer &renderer) {
+void StartMenu::Draw() {
     if (!mpPlayButtonTexture || !mpOnPlayButtonTexture || !mpExitButtonTexture || !mpOnExitButtonTexture
         || !mpRecordsButtonTexture || !mpOnRecordsButtonTexture) {
         SDL_Surface *pSurface;
         if (!mpPlayButtonTexture) {
             pSurface = IMG_Load("assets/textures/play.png");
             if (pSurface) {
-                mpPlayButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnPlayButtonTexture) {
             pSurface = IMG_Load("assets/textures/play_on.png");
             if (pSurface) {
-                mpOnPlayButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpExitButtonTexture) {
             pSurface = IMG_Load("assets/textures/exit.png");
             if (pSurface) {
-                mpExitButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnExitButtonTexture) {
             pSurface = IMG_Load("assets/textures/exit_on.png");
             if (pSurface) {
-                mpOnExitButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpRecordsButtonTexture) {
             pSurface = IMG_Load("assets/textures/records.png");
             if (pSurface) {
-                mpRecordsButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnRecordsButtonTexture) {
             pSurface = IMG_Load("assets/textures/records_on.png");
             if (pSurface) {
-                mpOnRecordsButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
@@ -108,9 +108,9 @@ void StartMenu::Draw(Renderer &renderer) {
         pExitTexture = mpExitButtonTexture;
     }
 
-    SDL_RenderCopy(renderer.GetRawRenderer(), pPlayTexture, NULL, &mPlayButtonHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), pRecordsTexture, NULL, &mRecordsButtonHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), pExitTexture, NULL, &mExitButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pPlayTexture, NULL, &mPlayButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pRecordsTexture, NULL, &mRecordsButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pExitTexture, NULL, &mExitButtonHitBox);
 }
 
 StartMenuButton StartMenu::HandleClick() {

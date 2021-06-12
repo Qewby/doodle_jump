@@ -20,9 +20,9 @@ enum class EndMenuButton {
 
 class EndGameMenu : public Drawable {
 public:
-    EndGameMenu();
+    EndGameMenu(Renderer& renderer);
     ~EndGameMenu();
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 
     EndMenuButton HandleClick();
     void Update();

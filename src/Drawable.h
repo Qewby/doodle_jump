@@ -8,12 +8,12 @@ extern int WINDOW_WIDTH;
 
 class Drawable {
 public:
-    Drawable(Renderer &renderer) : mRenderer(renderer) {};
+    Drawable(Renderer &renderer) : mrRenderer(renderer) {};
     virtual ~Drawable() {};
     virtual void Draw() = 0;
 
 protected:
-    Renderer& mRenderer;
+    Renderer& mrRenderer;
 };
 
 

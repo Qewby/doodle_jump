@@ -5,11 +5,11 @@
 
 class SimplePlatform : public Platform {
 public:
-    SimplePlatform(int x, int y);
+    SimplePlatform(int x, int y, Renderer& renderer);
     virtual ~SimplePlatform();
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 
     static SDL_Texture *spPlatformTexture;
 };

@@ -15,9 +15,9 @@ enum class StartMenuButton {
 
 class StartMenu : public Drawable {
 public:
-    StartMenu();
+    StartMenu(Renderer& renderer);
     ~StartMenu();
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 
     StartMenuButton HandleClick();
 private:

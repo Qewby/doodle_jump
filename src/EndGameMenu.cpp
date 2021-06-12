@@ -1,6 +1,6 @@
 #include "EndGameMenu.h"
 
-EndGameMenu::EndGameMenu() {
+EndGameMenu::EndGameMenu(Renderer& renderer) : Drawable(renderer) {
     const int indent = 5;
     mScoreLabelHitBox.w = mRecordLabelHitBox.w = WINDOW_WIDTH / 4;
     mScoreLabelHitBox.h = mRecordLabelHitBox.h = mScoreLabelHitBox.w / 2.5;
@@ -50,7 +50,7 @@ EndGameMenu::~EndGameMenu() {
 
     TTF_CloseFont(mpFont);
 }
-void EndGameMenu::Draw(Renderer &renderer) {
+void EndGameMenu::Draw() {
     if (!mpPlayAgainButtonTexture || !mpOnPlayAgainButtonTexture || !mpMenuButtonTexture ||
             !mpOnMenuButtonTexture || !mpScoreLabelTexture || !mpRecordLabelTexture || !mpScoreTexture ||
             !mpRecordTexture) {
@@ -58,52 +58,52 @@ void EndGameMenu::Draw(Renderer &renderer) {
         if (!mpPlayAgainButtonTexture) {
             pSurface = IMG_Load("assets/textures/play_again.png");
             if (pSurface) {
-                mpPlayAgainButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnPlayAgainButtonTexture) {
             pSurface = IMG_Load("assets/textures/play_again_on.png");
             if (pSurface) {
-                mpOnPlayAgainButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpMenuButtonTexture) {
             pSurface = IMG_Load("assets/textures/menu.png");
             if (pSurface) {
-                mpMenuButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnMenuButtonTexture) {
             pSurface = IMG_Load("assets/textures/menu_on.png");
             if (pSurface) {
-                mpOnMenuButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpScoreLabelTexture) {
             pSurface = IMG_Load("assets/textures/score_label.png");
             if (pSurface) {
-                mpScoreLabelTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpScoreLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpRecordLabelTexture) {
             pSurface = IMG_Load("assets/textures/record_label.png");
             if (pSurface) {
-                mpRecordLabelTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpRecordLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpScoreTexture) {
             pSurface = TTF_RenderText_Solid(mpFont, mScoreText.c_str(), {0, 0, 0});
-            mpScoreTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            mpScoreTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
         }
         if (!mpRecordTexture) {
             pSurface = TTF_RenderText_Solid(mpFont, mRecordText.c_str(), {0, 0, 0});
-            mpRecordTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            mpRecordTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
         }
     }
 
@@ -131,12 +131,12 @@ void EndGameMenu::Draw(Renderer &renderer) {
         pMenuTexture = mpMenuButtonTexture;
     }
 
-    SDL_RenderCopy(renderer.GetRawRenderer(), pPlayAgainTexture, NULL, &mPlayAgainButtonHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), pMenuTexture, NULL, &mMenuButtonHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpScoreLabelTexture, NULL, &mScoreLabelHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpRecordLabelTexture, NULL, &mRecordLabelHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpScoreTexture, NULL, &mScoreHitBox);
-    SDL_RenderCopy(renderer.GetRawRenderer(), mpRecordTexture, NULL, &mRecordHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pPlayAgainTexture, NULL, &mPlayAgainButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pMenuTexture, NULL, &mMenuButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpScoreLabelTexture, NULL, &mScoreLabelHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpRecordLabelTexture, NULL, &mRecordLabelHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpScoreTexture, NULL, &mScoreHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpRecordTexture, NULL, &mRecordHitBox);
 }
 
 

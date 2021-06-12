@@ -1,8 +1,8 @@
 #include "Doodle.h"
 
-Doodle::Doodle(Field& field) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
+Doodle::Doodle(Field& field, Renderer& renderer) : mrField(field), mcMaxHorizontalSpeed(WINDOW_WIDTH * 0.015),
     mcHorizontalAcceleration(mcMaxHorizontalSpeed / 16.0), mcVerticalAcceleration(WINDOW_HEIGHT / 2780.0),
-    mcJumpSpeed(-(mcVerticalAcceleration * 35))
+    mcJumpSpeed(-(mcVerticalAcceleration * 35)), Drawable(renderer)
     {
     mHitBox.h = WINDOW_HEIGHT * 0.07;
     mHitBox.w = mHitBox.h * 4 / 5;
@@ -17,11 +17,11 @@ Doodle::~Doodle() {
     SDL_DestroyTexture(mpDoodleTexture);
 }
 
-void Doodle::Draw(Renderer &renderer) {
+void Doodle::Draw() {
     if (!mpDoodleTexture) {
         SDL_Surface *pSurface = IMG_Load("assets/textures/ninja.png");
         if (pSurface) {
-            mpDoodleTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+            mpDoodleTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
             SDL_FreeSurface(pSurface);
         }
     }
@@ -45,7 +45,7 @@ void Doodle::Draw(Renderer &renderer) {
     SDL_RenderFillRect(renderer.GetRawRenderer(), &mTextureHitBox);
     SDL_SetRenderDrawColor(renderer.GetRawRenderer(), 0, 0, 255, 255);
     SDL_RenderFillRect(renderer.GetRawRenderer(), &mHitBox);*/
-    SDL_RenderCopyEx(renderer.GetRawRenderer(), mpDoodleTexture, NULL,
+    SDL_RenderCopyEx(mrRenderer.GetRawRenderer(), mpDoodleTexture, NULL,
                      &mTextureHitBox, 0, NULL, flip);
 }
 

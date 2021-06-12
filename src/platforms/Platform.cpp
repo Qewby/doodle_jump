@@ -1,6 +1,6 @@
 #include "Platform.h"
 
-Platform::Platform(int x, int y) {
+Platform::Platform(int x, int y, Renderer& renderer) : Drawable(renderer) {
     mHitBox.x = x;
     mHitBox.y = y;
     mHitBox.h = WINDOW_HEIGHT * 0.025;

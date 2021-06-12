@@ -5,7 +5,7 @@
 
 class Platform : public Drawable {
 public:
-    Platform(int x, int y);
+    Platform(int x, int y, Renderer& renderer);
     virtual ~Platform() {};
 
     bool isVisible();

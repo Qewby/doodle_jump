@@ -11,12 +11,13 @@
 
 class PlatformFactory {
 public:
-    PlatformFactory();
+    PlatformFactory(Renderer& renderer);
     ~PlatformFactory();
 
     Platform* CreatePlatform(int x, int y);
 private:
     int mCountEmptyInRaw;
+    Renderer& mrRenderer;
 };
 
 

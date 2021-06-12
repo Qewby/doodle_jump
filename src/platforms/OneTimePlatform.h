@@ -5,11 +5,11 @@
 
 class OneTimePlatform : public Platform{
 public:
-    OneTimePlatform(int x, int y);
+    OneTimePlatform(int x, int y, Renderer& renderer);
     virtual ~OneTimePlatform();
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 
     static SDL_Texture *spPlatformTexture;
 };

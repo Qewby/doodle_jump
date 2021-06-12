@@ -6,11 +6,11 @@
 
 class OneTimeMovingPlatform : public MovingPlatform {
 public:
-    OneTimeMovingPlatform(int x, int y);
+    OneTimeMovingPlatform(int x, int y, Renderer& renderer);
     virtual ~OneTimeMovingPlatform();
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
 };
 
 

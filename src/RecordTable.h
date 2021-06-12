@@ -16,14 +16,14 @@ extern std::pair<int, int> gMousePosition;
 
 class RecordTable : public Drawable {
 public:
-    RecordTable();
+    RecordTable(Renderer& renderer);
     ~RecordTable();
 
     void ReadTable();
     void UpdateTable(std::string name);
     bool IsRecord();
 
-    void Draw(Renderer &renderer) override;
+    void Draw() override;
     bool HandleClick();
 private:
     struct Record {

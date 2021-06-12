@@ -3,7 +3,7 @@
 const int RecordTable::scIndent = 5;
 const int RecordTable::scMaxCharCount = 10;
 
-RecordTable::RecordTable() : mTable() {
+RecordTable::RecordTable(Renderer& renderer) : Drawable(renderer), mTable() {
     mpFont = TTF_OpenFont("assets/fonts/font.ttf", 80);
     mNameHitBox.w = mScoreHitBox.w = WINDOW_WIDTH / 4;
     mNameHitBox.h = mScoreHitBox.h = WINDOW_HEIGHT / 25;
@@ -72,20 +72,20 @@ bool RecordTable::IsRecord() {
     return SCORE > mTable.back().score;
 }
 
-void RecordTable::Draw(Renderer &renderer) {
+void RecordTable::Draw() {
     if (!mpBackButtonTexture || !mpOnBackButtonTexture) {
         SDL_Surface *pSurface;
         if (!mpBackButtonTexture) {
             pSurface = IMG_Load("assets/textures/back.png");
             if (pSurface) {
-                mpBackButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
         if (!mpOnBackButtonTexture) {
             pSurface = IMG_Load("assets/textures/back_on.png");
             if (pSurface) {
-                mpOnBackButtonTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), pSurface);
+                mpOnBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
                 SDL_FreeSurface(pSurface);
             }
         }
@@ -106,14 +106,14 @@ void RecordTable::Draw(Renderer &renderer) {
         }
 
         mpSurface = TTF_RenderText_Solid(mpFont, nicknameText.c_str(), {0, 0, 0});
-        mpTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), mpSurface);
-        SDL_RenderCopy(renderer.GetRawRenderer(), mpTexture, NULL, &mNameHitBox);
+        mpTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), mpSurface);
+        SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTexture, NULL, &mNameHitBox);
         SDL_FreeSurface(mpSurface);
         SDL_DestroyTexture(mpTexture);
 
         mpSurface = TTF_RenderText_Solid(mpFont, scoreText.c_str(), {0, 0, 0});
-        mpTexture = SDL_CreateTextureFromSurface(renderer.GetRawRenderer(), mpSurface);
-        SDL_RenderCopy(renderer.GetRawRenderer(), mpTexture, NULL, &mScoreHitBox);
+        mpTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), mpSurface);
+        SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTexture, NULL, &mScoreHitBox);
         SDL_FreeSurface(mpSurface);
         SDL_DestroyTexture(mpTexture);
 
@@ -132,7 +132,7 @@ void RecordTable::Draw(Renderer &renderer) {
     else {
         pPlayTexture = mpBackButtonTexture;
     }
-    SDL_RenderCopy(renderer.GetRawRenderer(), pPlayTexture, NULL, &mBackButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pPlayTexture, NULL, &mBackButtonHitBox);
 }
 
 bool RecordTable::HandleClick() {

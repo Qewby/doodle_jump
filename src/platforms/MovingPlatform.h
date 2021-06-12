@@ -5,11 +5,11 @@
 
 class MovingPlatform : public Platform {
 public:
-    MovingPlatform(int x, int y);
+    MovingPlatform(int x, int y, Renderer& renderer);
     virtual ~MovingPlatform();
 
     virtual bool CollisionCallback(bool isCollided) override;
-    virtual void Draw(Renderer &renderer) override;
+    virtual void Draw() override;
 
     static void SetSpeed(int speed);
 
