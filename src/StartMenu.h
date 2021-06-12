@@ -1,7 +1,7 @@
 #ifndef DOODLE_JUMP_STARTMENU_H
 #define DOODLE_JUMP_STARTMENU_H
 
-#include "IDrawable.h"
+#include "Drawable.h"
 
 extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
 extern std::pair<int, int> gMousePosition;
@@ -13,7 +13,7 @@ enum class StartMenuButton {
     NoneButton
 };
 
-class StartMenu : public IDrawable {
+class StartMenu : public Drawable {
 public:
     StartMenu();
     ~StartMenu();

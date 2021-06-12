@@ -1,9 +1,9 @@
 #ifndef DOODLE_JUMP_PLATFORM_H
 #define DOODLE_JUMP_PLATFORM_H
 
-#include "../IDrawable.h"
+#include "../Drawable.h"
 
-class Platform : public IDrawable {
+class Platform : public Drawable {
 public:
     Platform(int x, int y);
     virtual ~Platform() {};

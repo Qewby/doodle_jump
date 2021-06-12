@@ -10,7 +10,7 @@
 
 extern unsigned long long SCORE;
 
-class Field : public IDrawable {
+class Field : public Drawable {
 public:
     Field(bool& quit);
     ~Field();

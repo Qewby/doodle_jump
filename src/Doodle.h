@@ -1,11 +1,11 @@
 #ifndef DOODLE_JUMP_DOODLE_H
 #define DOODLE_JUMP_DOODLE_H
 
-#include "IDrawable.h"
+#include "Drawable.h"
 #include "Field.h"
 #include "EventListener.h"
 
-class Doodle : public IDrawable {
+class Doodle : public Drawable {
 public:
     Doodle(Field& field);
     ~Doodle();

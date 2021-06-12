@@ -1,7 +1,7 @@
 #ifndef DOODLE_JUMP_ENDGAMEMENU_H
 #define DOODLE_JUMP_ENDGAMEMENU_H
 
-#include "IDrawable.h"
+#include "Drawable.h"
 #include "SDL_ttf.h"
 
 extern unsigned long long  SCORE;
@@ -18,7 +18,7 @@ enum class EndMenuButton {
     NoneButton
 };
 
-class EndGameMenu : public IDrawable {
+class EndGameMenu : public Drawable {
 public:
     EndGameMenu();
     ~EndGameMenu();

@@ -1,13 +1,13 @@
 #ifndef DOODLE_JUMP_SCORELINE_H
 #define DOODLE_JUMP_SCORELINE_H
 
-#include "IDrawable.h"
+#include "Drawable.h"
 #include "SDL_ttf.h"
 
 extern const int gcMaxScoreLength;
 extern unsigned long long SCORE;
 
-class ScoreLine : public IDrawable{
+class ScoreLine : public Drawable{
 public:
     ScoreLine();
     ~ScoreLine();
