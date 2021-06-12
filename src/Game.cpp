@@ -43,6 +43,7 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     mpScoreLine = new ScoreLine(*mpRenderer);
     mpStartMenu = new StartMenu(*mpRenderer);
     mpEndMenu = new EndGameMenu(*mpRenderer);
+    mpTypeMenu = new TypeNameMenu(*mpRenderer);
 
     mpRecordTable = new RecordTable(*mpRenderer);
     mpRecordTable->ReadTable();
@@ -53,6 +54,7 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
 
 Game::~Game() {
     delete mpRecordTable;
+    delete mpTypeMenu;
     delete mpEndMenu;
     delete mpStartMenu;
     delete mpScoreLine;
@@ -142,9 +144,23 @@ void Game::Play() {
 }
 
 void Game::UpdateRecord() {
-    static std::string name = "name";
     if (mpRecordTable->IsRecord()) {
-        mpRecordTable->UpdateTable(name);
+        unsigned int t;
+        while (!mpTypeMenu->HandleActions() && !mQuit) {
+            t = SDL_GetTicks();
+            mpRenderer->ClearScreen();
+
+            mListener.Listen();
+            mpField->Draw();
+            mpTypeMenu->Draw();
+
+            mpRenderer->DrawScreen();
+            t = SDL_GetTicks () - t;
+            if (t < 1000 / mScreenRate) {
+                SDL_Delay ((1000 / mScreenRate) - t);
+            }
+        }
+        mpRecordTable->UpdateTable(mpTypeMenu->GetName());
     }
 }
 

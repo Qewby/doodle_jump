@@ -15,6 +15,7 @@
 #include "StartMenu.h"
 #include "EndGameMenu.h"
 #include "RecordTable.h"
+#include "TypeNameMenu.h"
 
 extern unsigned long long  SCORE;
 extern unsigned long long  RECORD;
@@ -43,6 +44,7 @@ private:
     StartMenu *mpStartMenu;
     EventListener mListener;
     RecordTable *mpRecordTable;
+    TypeNameMenu *mpTypeMenu;
     int mScreenHeight;
     int mScreenWidth;
     int mWindowHeight;

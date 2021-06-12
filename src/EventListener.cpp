@@ -20,6 +20,9 @@ void EventListener::Listen() {
                 mQuit = true;
                 break;
             case SDL_KEYDOWN:
+                if (mEvent.key.keysym.sym == SDLK_BACKSPACE && gTypedText.length() > 0) {
+                    gTypedText.pop_back();
+                }
             case SDL_KEYUP:
                 gKeyStatesMap["left"] = mpKeyboardStateArray[SDL_SCANCODE_LEFT] || mpKeyboardStateArray[SDL_SCANCODE_A];
                 gKeyStatesMap["right"] = mpKeyboardStateArray[SDL_SCANCODE_RIGHT] || mpKeyboardStateArray[SDL_SCANCODE_D];
@@ -30,6 +33,10 @@ void EventListener::Listen() {
                 }
             case SDL_MOUSEMOTION:
                 gMousePosition = {mEvent.motion.x, mEvent.motion.y};
+                break;
+            case SDL_TEXTINPUT:
+                gTypedText += mEvent.text.text;
+                break;
         }
     }
 }
