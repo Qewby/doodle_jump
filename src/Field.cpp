@@ -45,7 +45,7 @@ void Field::Shift(int value) {
     for (auto platform : mPlatforms) {
         SDL_Rect& platformHitBox = platform->GetHitBox();
         platformHitBox.y += value;
-        if (platformHitBox.y > WINDOW_HEIGHT) {
+        if (platformHitBox.y + 3 > WINDOW_HEIGHT) {
             Platform* toDelete = mPlatforms.back();
             delete toDelete;
             mPlatforms.pop_back();
