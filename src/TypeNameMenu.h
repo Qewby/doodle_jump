@@ -12,16 +12,13 @@ extern std::string gTypedText;
 class TypeNameMenu : public Drawable {
 public:
     TypeNameMenu(Renderer& renderer);
-    ~TypeNameMenu();
+    virtual ~TypeNameMenu();
 
     void Draw() override;
 
     bool HandleActions();
     void Reset();
     std::string GetName();
-protected:
-    void LoadTextures() override;
-    void DestroyTextures() override;
 private:
     std::string mName;
     bool mIsTextChange;

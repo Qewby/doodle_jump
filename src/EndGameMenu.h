@@ -21,7 +21,7 @@ enum class EndMenuButton {
 class EndGameMenu : public Drawable {
 public:
     EndGameMenu(Renderer& renderer);
-    ~EndGameMenu();
+    virtual ~EndGameMenu();
     void Draw() override;
 
     EndMenuButton HandleClick();

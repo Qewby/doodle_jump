@@ -11,6 +11,16 @@ Doodle::Doodle(Field& field, Renderer& renderer) : mrField(field), mcMaxHorizont
     mTextureHitBox.w = mHitBox.h;
 
     mpDoodleTexture = nullptr;
+
+    std::string path = "assets/textures/ninja.png";
+    SDL_Surface *pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpDoodleTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
 }
 
 Doodle::~Doodle() {
@@ -18,14 +28,6 @@ Doodle::~Doodle() {
 }
 
 void Doodle::Draw() {
-    if (!mpDoodleTexture) {
-        SDL_Surface *pSurface = IMG_Load("assets/textures/ninja.png");
-        if (pSurface) {
-            mpDoodleTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-            SDL_FreeSurface(pSurface);
-        }
-    }
-
     static SDL_RendererFlip flip = SDL_FLIP_NONE;
     if (gKeyStatesMap["right"] && !gKeyStatesMap["left"]) {
         flip = SDL_FLIP_NONE;

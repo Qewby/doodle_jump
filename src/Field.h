@@ -13,7 +13,7 @@ extern unsigned long long SCORE;
 class Field : public Drawable {
 public:
     Field(bool& quit, Renderer& renderer);
-    ~Field();
+    virtual ~Field();
 
     void Draw() override;
     std::deque<Platform*>& GetPlatforms();

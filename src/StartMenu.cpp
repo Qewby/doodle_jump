@@ -16,62 +16,82 @@ StartMenu::StartMenu(Renderer& renderer) : Drawable(renderer) {
     mpOnPlayButtonTexture = nullptr;
     mpExitButtonTexture = nullptr;
     mpOnExitButtonTexture = nullptr;
+    mpRecordsButtonTexture = nullptr;
+    mpOnRecordsButtonTexture = nullptr;
+
+    SDL_Surface *pSurface;
+    std::string path;
+
+    path = "assets/textures/play.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/play_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/exit.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/exit_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/records.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/records_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
 }
 
 StartMenu::~StartMenu() {
     SDL_DestroyTexture(mpPlayButtonTexture);
     SDL_DestroyTexture(mpOnPlayButtonTexture);
+    SDL_DestroyTexture(mpRecordsButtonTexture);
+    SDL_DestroyTexture(mpOnRecordsButtonTexture);
     SDL_DestroyTexture(mpExitButtonTexture);
     SDL_DestroyTexture(mpOnExitButtonTexture);
 }
 void StartMenu::Draw() {
-    if (!mpPlayButtonTexture || !mpOnPlayButtonTexture || !mpExitButtonTexture || !mpOnExitButtonTexture
-        || !mpRecordsButtonTexture || !mpOnRecordsButtonTexture) {
-        SDL_Surface *pSurface;
-        if (!mpPlayButtonTexture) {
-            pSurface = IMG_Load("assets/textures/play.png");
-            if (pSurface) {
-                mpPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnPlayButtonTexture) {
-            pSurface = IMG_Load("assets/textures/play_on.png");
-            if (pSurface) {
-                mpOnPlayButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpExitButtonTexture) {
-            pSurface = IMG_Load("assets/textures/exit.png");
-            if (pSurface) {
-                mpExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnExitButtonTexture) {
-            pSurface = IMG_Load("assets/textures/exit_on.png");
-            if (pSurface) {
-                mpOnExitButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpRecordsButtonTexture) {
-            pSurface = IMG_Load("assets/textures/records.png");
-            if (pSurface) {
-                mpRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnRecordsButtonTexture) {
-            pSurface = IMG_Load("assets/textures/records_on.png");
-            if (pSurface) {
-                mpOnRecordsButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-    }
-
     static SDL_Texture *pPlayTexture = nullptr;
     if (gMousePosition.first - mPlayButtonHitBox.x >= 0 &&
         gMousePosition.first - mPlayButtonHitBox.x <= mPlayButtonHitBox.w &&

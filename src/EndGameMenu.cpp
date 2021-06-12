@@ -32,8 +32,74 @@ EndGameMenu::EndGameMenu(Renderer& renderer) : Drawable(renderer) {
     mpRecordLabelTexture = nullptr;
     mpRecordTexture = nullptr;
 
-    mpFont = TTF_OpenFont("assets/fonts/font.ttf", 200);
+    SDL_Surface *pSurface;
+    std::string path;
 
+    path = "assets/fonts/font.ttf";
+    mpFont = TTF_OpenFont(path.c_str(), 200);
+    if (!mpFont) {
+        SDL_Log("ERROR: can't load font");
+    }
+
+    path = "assets/textures/play_again.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/play_again_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/menu.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/menu_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/score_label.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpScoreLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/record_label.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpRecordLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
     Update();
 }
 
@@ -51,62 +117,6 @@ EndGameMenu::~EndGameMenu() {
     TTF_CloseFont(mpFont);
 }
 void EndGameMenu::Draw() {
-    if (!mpPlayAgainButtonTexture || !mpOnPlayAgainButtonTexture || !mpMenuButtonTexture ||
-            !mpOnMenuButtonTexture || !mpScoreLabelTexture || !mpRecordLabelTexture || !mpScoreTexture ||
-            !mpRecordTexture) {
-        SDL_Surface *pSurface;
-        if (!mpPlayAgainButtonTexture) {
-            pSurface = IMG_Load("assets/textures/play_again.png");
-            if (pSurface) {
-                mpPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnPlayAgainButtonTexture) {
-            pSurface = IMG_Load("assets/textures/play_again_on.png");
-            if (pSurface) {
-                mpOnPlayAgainButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpMenuButtonTexture) {
-            pSurface = IMG_Load("assets/textures/menu.png");
-            if (pSurface) {
-                mpMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnMenuButtonTexture) {
-            pSurface = IMG_Load("assets/textures/menu_on.png");
-            if (pSurface) {
-                mpOnMenuButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpScoreLabelTexture) {
-            pSurface = IMG_Load("assets/textures/score_label.png");
-            if (pSurface) {
-                mpScoreLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpRecordLabelTexture) {
-            pSurface = IMG_Load("assets/textures/record_label.png");
-            if (pSurface) {
-                mpRecordLabelTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpScoreTexture) {
-            pSurface = TTF_RenderText_Solid(mpFont, mScoreText.c_str(), {0, 0, 0});
-            mpScoreTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-        }
-        if (!mpRecordTexture) {
-            pSurface = TTF_RenderText_Solid(mpFont, mRecordText.c_str(), {0, 0, 0});
-            mpRecordTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-        }
-    }
-
     static SDL_Texture *pPlayAgainTexture = nullptr;
     if (gMousePosition.first - mPlayAgainButtonHitBox.x >= 0 &&
         gMousePosition.first - mPlayAgainButtonHitBox.x <= mPlayAgainButtonHitBox.w &&
@@ -167,18 +177,33 @@ EndMenuButton EndGameMenu::HandleClick() {
 
 
 void EndGameMenu::Update() {
-    mpRecordTexture = nullptr;
-    mpScoreTexture = nullptr;
+    SDL_Surface *pSurface;
 
     mScoreText = std::to_string(SCORE);
     int emptySize = gcMaxScoreLength - mScoreText.length();
     for (int i = 0; i < emptySize; i++) {
         mScoreText += " ";
     }
+    pSurface = TTF_RenderText_Solid(mpFont, mScoreText.c_str(), {0, 0, 0});
+    if (pSurface) {
+        mpScoreTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't make score texture");
+    }
 
     mRecordText = std::to_string(RECORD);
     emptySize = gcMaxScoreLength - mRecordText.length();
     for (int i = 0; i < emptySize; i++) {
         mRecordText += " ";
+    }
+    pSurface = TTF_RenderText_Solid(mpFont, mRecordText.c_str(), {0, 0, 0});
+    if (pSurface) {
+        mpRecordTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't make record texture");
     }
 }

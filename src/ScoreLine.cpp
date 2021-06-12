@@ -6,17 +6,25 @@ ScoreLine::ScoreLine(Renderer& renderer) : Drawable(renderer) {
     mLineHitBox.w = WINDOW_WIDTH;
     mLineHitBox.h = WINDOW_HEIGHT * 0.035;
 
-    mpFont = TTF_OpenFont("assets/fonts/font.ttf", 80);
-
     mTextHitBox.h = mLineHitBox.h;
     mTextHitBox.w = mLineHitBox.h * 0.4 * gcMaxScoreLength;
     mTextHitBox.x = mLineHitBox.h / 2;
     mTextHitBox.y = 0;
+
+    mpFont = nullptr;
+    mpSurface = nullptr;
+    mpTexture = nullptr;
+
+    std::string path;
+
+    path = "assets/fonts/font.ttf";
+    mpFont = TTF_OpenFont(path.c_str(), 80);
+    if (!mpFont) {
+        SDL_Log("ERROR: can't load font");
+    }
 }
 
 ScoreLine::~ScoreLine() {
-    SDL_DestroyTexture(mpTexture);
-    SDL_FreeSurface(mpSurface);
     TTF_CloseFont(mpFont);
 }
 
@@ -34,12 +42,4 @@ void ScoreLine::Draw() {
     SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTexture, NULL, &mTextHitBox);
     SDL_DestroyTexture(mpTexture);
     SDL_FreeSurface(mpSurface);
-}
-
-void ScoreLine::LoadTextures() {
-
-}
-
-void ScoreLine::DestroyTextures() {
-
 }

@@ -8,7 +8,7 @@
 class Doodle : public Drawable {
 public:
     Doodle(Field& field, Renderer& renderer);
-    ~Doodle();
+    virtual ~Doodle();
 
     void Draw() override;
     SDL_Rect& GetHitBox();

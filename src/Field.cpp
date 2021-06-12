@@ -7,7 +7,18 @@ Field::Field(bool& quit, Renderer& renderer) : Drawable(renderer), mFactory(rend
     mHitBox.y = 0;
     mHitBox.h = WINDOW_HEIGHT;
     mHitBox.w = WINDOW_WIDTH;
+
     mpFieldTexture = nullptr;
+
+    std::string path = "assets/textures/background.png";
+    SDL_Surface *pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpFieldTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
 }
 
 Field::~Field() {
@@ -16,13 +27,6 @@ Field::~Field() {
 }
 
 void Field::Draw() {
-    if (!mpFieldTexture) {
-        SDL_Surface *pSurface = IMG_Load("assets/textures/background.png");
-        if (pSurface) {
-            mpFieldTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-            SDL_FreeSurface(pSurface);
-        }
-    }
     SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpFieldTexture, NULL, &mHitBox);
 
     for (auto platform : mPlatforms) {

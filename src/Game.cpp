@@ -144,6 +144,8 @@ void Game::Play() {
 }
 
 void Game::UpdateRecord() {
+    SDL_StartTextInput();
+    mpTypeMenu->Reset();
     if (mpRecordTable->IsRecord()) {
         unsigned int t;
         while (!mpTypeMenu->HandleActions() && !mQuit) {
@@ -162,6 +164,7 @@ void Game::UpdateRecord() {
         }
         mpRecordTable->UpdateTable(mpTypeMenu->GetName());
     }
+    SDL_StopTextInput();
 }
 
 void Game::WatchRecordTable() {

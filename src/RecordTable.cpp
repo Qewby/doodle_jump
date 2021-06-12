@@ -4,7 +4,6 @@ const int RecordTable::scIndent = 5;
 const int RecordTable::scMaxCharCount = 10;
 
 RecordTable::RecordTable(Renderer& renderer) : Drawable(renderer), mTable() {
-    mpFont = TTF_OpenFont("assets/fonts/font.ttf", 80);
     mNameHitBox.w = mScoreHitBox.w = WINDOW_WIDTH / 4;
     mNameHitBox.h = mScoreHitBox.h = WINDOW_HEIGHT / 25;
     mNameHitBox.x = mBackButtonHitBox.x = (WINDOW_WIDTH - mNameHitBox.w) / 3;
@@ -15,9 +14,40 @@ RecordTable::RecordTable(Renderer& renderer) : Drawable(renderer), mTable() {
 
     mpBackButtonTexture = nullptr;
     mpOnBackButtonTexture = nullptr;
+
+    SDL_Surface *pSurface;
+    std::string path;
+
+    path = "assets/fonts/font.ttf";
+    mpFont = TTF_OpenFont(path.c_str(), 80);
+    if (!mpFont) {
+        SDL_Log("ERROR: can't load font");
+    }
+
+    path = "assets/textures/back.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
+
+    path = "assets/textures/back_on.png";
+    pSurface = IMG_Load(path.c_str());
+    if (pSurface) {
+        mpOnBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+        SDL_FreeSurface(pSurface);
+    }
+    else {
+        SDL_Log("ERROR: can't load texture: %s", path.c_str());
+    }
 }
 
 RecordTable::~RecordTable() {
+    SDL_DestroyTexture(mpBackButtonTexture);
+    SDL_DestroyTexture(mpOnBackButtonTexture);
     TTF_CloseFont(mpFont);
 }
 
@@ -73,24 +103,6 @@ bool RecordTable::IsRecord() {
 }
 
 void RecordTable::Draw() {
-    if (!mpBackButtonTexture || !mpOnBackButtonTexture) {
-        SDL_Surface *pSurface;
-        if (!mpBackButtonTexture) {
-            pSurface = IMG_Load("assets/textures/back.png");
-            if (pSurface) {
-                mpBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-        if (!mpOnBackButtonTexture) {
-            pSurface = IMG_Load("assets/textures/back_on.png");
-            if (pSurface) {
-                mpOnBackButtonTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-                SDL_FreeSurface(pSurface);
-            }
-        }
-    }
-
     mNameHitBox.y = mScoreHitBox.y = (WINDOW_HEIGHT - ((mNameHitBox.h + scIndent) * mTable.size() - scIndent)) / 2;
     for (auto record : mTable) {
         std::string scoreText = std::to_string(record.score);

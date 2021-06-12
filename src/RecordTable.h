@@ -17,7 +17,7 @@ extern std::pair<int, int> gMousePosition;
 class RecordTable : public Drawable {
 public:
     RecordTable(Renderer& renderer);
-    ~RecordTable();
+    virtual ~RecordTable();
 
     void ReadTable();
     void UpdateTable(std::string name);

@@ -16,7 +16,7 @@ enum class StartMenuButton {
 class StartMenu : public Drawable {
 public:
     StartMenu(Renderer& renderer);
-    ~StartMenu();
+    virtual ~StartMenu();
     void Draw() override;
 
     StartMenuButton HandleClick();

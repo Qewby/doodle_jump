@@ -10,7 +10,7 @@ extern unsigned long long SCORE;
 class ScoreLine : public Drawable{
 public:
     ScoreLine(Renderer& renderer);
-    ~ScoreLine();
+    virtual ~ScoreLine();
 
     void Draw() override;
 

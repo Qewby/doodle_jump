@@ -18,48 +18,14 @@ TypeNameMenu::TypeNameMenu(Renderer& renderer) : Drawable(renderer) {
             - scIndent) / 2;
     mApplyButtonHitBox.y = mLabelHitBox.y + mLabelHitBox.h + scIndent;
 
+    mpLabelTexture = nullptr;
     mpTypedTextTexture = nullptr;
+    mpApplyButtonTexture = nullptr;
+    mpOnApplyButtonTexture = nullptr;
+
     mIsTextChange = true;
     mName = "";
-    LoadTextures();
-}
 
-TypeNameMenu::~TypeNameMenu() {
-    DestroyTextures();
-}
-
-void TypeNameMenu::Draw() {
-    static SDL_Texture *pApplyTexture = nullptr;
-    if (gMousePosition.first - mApplyButtonHitBox.x >= 0 &&
-        gMousePosition.first - mApplyButtonHitBox.x <= mApplyButtonHitBox.w &&
-        gMousePosition.second - mApplyButtonHitBox.y >= 0 &&
-        gMousePosition.second - mApplyButtonHitBox.y <= mApplyButtonHitBox.h) {
-
-        pApplyTexture = mpOnApplyButtonTexture;
-    }
-    else {
-        pApplyTexture = mpApplyButtonTexture;
-    }
-
-    if (mIsTextChange) {
-        if (mpTypedTextTexture) {
-            SDL_DestroyTexture(mpTypedTextTexture);
-        }
-        SDL_Surface *pSurface;
-        pSurface = TTF_RenderText_Solid(mpFont, mName.c_str(), {0, 0, 0});
-        if (pSurface) {
-            mpTypedTextTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
-            SDL_FreeSurface(pSurface);
-            mIsTextChange = false;
-        }
-    }
-
-    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pApplyTexture, NULL, &mApplyButtonHitBox);
-    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpLabelTexture, NULL, &mLabelHitBox);
-    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTypedTextTexture, NULL, &mTypedTextHitBox);
-}
-
-void TypeNameMenu::LoadTextures() {
     SDL_Surface *pSurface;
     std::string path;
 
@@ -100,7 +66,7 @@ void TypeNameMenu::LoadTextures() {
     }
 }
 
-void TypeNameMenu::DestroyTextures() {
+TypeNameMenu::~TypeNameMenu() {
     if (mpTypedTextTexture) {
         SDL_DestroyTexture(mpTypedTextTexture);
     }
@@ -108,6 +74,37 @@ void TypeNameMenu::DestroyTextures() {
     SDL_DestroyTexture(mpApplyButtonTexture);
     SDL_DestroyTexture(mpOnApplyButtonTexture);
     TTF_CloseFont(mpFont);
+}
+
+void TypeNameMenu::Draw() {
+    static SDL_Texture *pApplyTexture = nullptr;
+    if (gMousePosition.first - mApplyButtonHitBox.x >= 0 &&
+        gMousePosition.first - mApplyButtonHitBox.x <= mApplyButtonHitBox.w &&
+        gMousePosition.second - mApplyButtonHitBox.y >= 0 &&
+        gMousePosition.second - mApplyButtonHitBox.y <= mApplyButtonHitBox.h) {
+
+        pApplyTexture = mpOnApplyButtonTexture;
+    }
+    else {
+        pApplyTexture = mpApplyButtonTexture;
+    }
+
+    if (mIsTextChange) {
+        if (mpTypedTextTexture) {
+            SDL_DestroyTexture(mpTypedTextTexture);
+        }
+        SDL_Surface *pSurface;
+        pSurface = TTF_RenderText_Solid(mpFont, mName.c_str(), {0, 0, 0});
+        if (pSurface) {
+            mpTypedTextTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), pSurface);
+            SDL_FreeSurface(pSurface);
+            mIsTextChange = false;
+        }
+    }
+
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), pApplyTexture, NULL, &mApplyButtonHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpLabelTexture, NULL, &mLabelHitBox);
+    SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTypedTextTexture, NULL, &mTypedTextHitBox);
 }
 
 bool TypeNameMenu::HandleActions() {
@@ -125,7 +122,8 @@ bool TypeNameMenu::HandleActions() {
     if (gLeftMouseClickPosition.second.first - mApplyButtonHitBox.x >= 0 &&
         gLeftMouseClickPosition.second.first - mApplyButtonHitBox.x <= mApplyButtonHitBox.w &&
         gLeftMouseClickPosition.second.second - mApplyButtonHitBox.y >= 0 &&
-        gLeftMouseClickPosition.second.second - mApplyButtonHitBox.y <= mApplyButtonHitBox.h) {
+        gLeftMouseClickPosition.second.second - mApplyButtonHitBox.y <= mApplyButtonHitBox.h &&
+        mName.length() != 0) {
 
         isClicked = true;
     }
