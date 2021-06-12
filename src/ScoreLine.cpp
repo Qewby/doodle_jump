@@ -32,4 +32,14 @@ void ScoreLine::Draw() {
     mpSurface = TTF_RenderText_Solid(mpFont, scoreText.c_str(), {0, 0, 0});
     mpTexture = SDL_CreateTextureFromSurface(mrRenderer.GetRawRenderer(), mpSurface);
     SDL_RenderCopy(mrRenderer.GetRawRenderer(), mpTexture, NULL, &mTextHitBox);
+    SDL_DestroyTexture(mpTexture);
+    SDL_FreeSurface(mpSurface);
+}
+
+void ScoreLine::LoadTextures() {
+
+}
+
+void ScoreLine::DestroyTextures() {
+
 }
