@@ -3,14 +3,13 @@
 
 #include "Platform.h"
 
-class EmptyPlatform : public Platform {
+class EmptyPlatform : public Platform
+{
 public:
-    EmptyPlatform(int x, int y, Renderer& renderer);
-    virtual ~EmptyPlatform();
+    EmptyPlatform(int x, int y, Renderer &renderer);
+    virtual ~EmptyPlatform(){};
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw() override;
 };
 
-
-#endif //DOODLE_JUMP_EMPTYPLATFORM_H
+#endif // DOODLE_JUMP_EMPTYPLATFORM_H

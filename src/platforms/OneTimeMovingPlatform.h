@@ -4,14 +4,13 @@
 #include "MovingPlatform.h"
 #include "OneTimePlatform.h"
 
-class OneTimeMovingPlatform : public MovingPlatform {
+class OneTimeMovingPlatform : public OneTimePlatform, MovingPlatform
+{
 public:
-    OneTimeMovingPlatform(int x, int y, Renderer& renderer);
-    virtual ~OneTimeMovingPlatform();
+    OneTimeMovingPlatform(int x, int y, Renderer &renderer);
+    virtual ~OneTimeMovingPlatform(){};
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw() override;
 };
 
-
-#endif //DOODLE_JUMP_ONETIMEMOVINGPLATFORM_H
+#endif // DOODLE_JUMP_ONETIMEMOVINGPLATFORM_H

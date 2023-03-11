@@ -3,16 +3,13 @@
 
 #include "Platform.h"
 
-class OneTimePlatform : public Platform{
+class OneTimePlatform : public virtual Platform
+{
 public:
-    OneTimePlatform(int x, int y, Renderer& renderer);
-    virtual ~OneTimePlatform();
+    OneTimePlatform(int x, int y, Renderer &renderer);
+    virtual ~OneTimePlatform(){};
 
     bool CollisionCallback(bool isCollided) override;
-    void Draw() override;
-
-    static SDL_Texture *spPlatformTexture;
 };
 
-
-#endif //DOODLE_JUMP_ONETIMEPLATFORM_H
+#endif // DOODLE_JUMP_ONETIMEPLATFORM_H

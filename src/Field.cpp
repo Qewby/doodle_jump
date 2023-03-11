@@ -43,8 +43,8 @@ std::deque<Platform *>& Field::GetPlatforms() {
 void Field::Shift(int value) {
     mLastPosition += value;
     for (auto platform : mPlatforms) {
-        SDL_Rect& platformHitBox = platform->GetHitBox();
-        platformHitBox.y += value;
+        const SDL_Rect& platformHitBox = platform->GetHitBox();
+        platform->ShiftHitBox(value);
         if (platformHitBox.y + 3 > WINDOW_HEIGHT) {
             Platform* toDelete = mPlatforms.back();
             delete toDelete;
