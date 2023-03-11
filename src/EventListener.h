@@ -2,6 +2,7 @@
 #define DOODLE_JUMP_EVENTLISTENER_H
 
 #include <map>
+#include <string>
 
 #include "SDL.h"
 
