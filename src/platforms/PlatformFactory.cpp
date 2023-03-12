@@ -29,7 +29,7 @@ Platform* PlatformFactory::CreatePlatform(int x, int y) {
         else {
             a = 1;
         }
-        if (mCountEmptyInRaw % 4 == 0) {
+        if (mCountEmptyInRaw % 1 == 0) {
             switch (randomizer() % a) {
                 case 0:
                     newPlatform = new SimplePlatform(x, y, mrRenderer);

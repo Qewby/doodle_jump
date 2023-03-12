@@ -21,8 +21,10 @@ public:
     virtual bool CollisionCallback(bool isCollided) = 0;
 
 protected:
-    SDL_Rect mHitBox;
     bool mVisible;
+    SDL_Rect mHitBox;
+    
+private:
     shared_ptr<Texture> mTexture;
 };
 
