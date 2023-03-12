@@ -27,8 +27,8 @@ public:
     bool HandleClick();
 private:
     struct Record {
-        std::string nickname;
-        unsigned long long score;
+        std::string nickname = "";
+        unsigned long long score = 0;
     };
     std::array<Record, 5> mTable;
 
