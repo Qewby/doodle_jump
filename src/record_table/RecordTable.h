@@ -6,7 +6,8 @@
 
 #include "SDL_ttf.h"
 
-#include "Drawable.h"
+#include "IRecordTable.h"
+#include "../Drawable.h"
 
 extern unsigned long long  SCORE;
 extern unsigned long long  RECORD;
@@ -14,17 +15,17 @@ extern unsigned long long  RECORD;
 extern std::pair<bool, std::pair<int, int>> gLeftMouseClickPosition;
 extern std::pair<int, int> gMousePosition;
 
-class RecordTable : public Drawable {
+class RecordTable : public IRecordTable {
 public:
     RecordTable(Renderer& renderer);
     virtual ~RecordTable();
 
-    void ReadTable();
-    void UpdateTable(std::string name);
-    bool IsRecord();
+    void ReadTable() override;
+    void UpdateTable(std::string name) override;
+    bool IsRecord() override;
 
     void Draw() override;
-    bool HandleClick();
+    bool HandleClick() override;
 private:
     struct Record {
         std::string nickname = "";

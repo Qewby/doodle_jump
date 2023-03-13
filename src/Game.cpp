@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "record_table/DeferredRecordTable.h"
+
 const int gcMaxScoreLength = 10;
 unsigned long long SCORE = 0;
 unsigned long long  RECORD = 0;
@@ -45,8 +47,7 @@ Game::Game(std::string name, bool isFullScreen) : mListener(mQuit) {
     mpEndMenu = new EndGameMenu(*mpRenderer);
     mpTypeMenu = new TypeNameMenu(*mpRenderer);
 
-    mpRecordTable = new RecordTable(*mpRenderer);
-    mpRecordTable->ReadTable();
+    mpRecordTable = new DeferredRecordTable(*mpRenderer);
 
     mLose = false;
     mQuit = false;

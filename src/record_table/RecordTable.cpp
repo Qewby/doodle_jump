@@ -3,7 +3,7 @@
 const int RecordTable::scIndent = 5;
 const int RecordTable::scMaxCharCount = 10;
 
-RecordTable::RecordTable(Renderer& renderer) : Drawable(renderer), mTable() {
+RecordTable::RecordTable(Renderer& renderer) : IRecordTable(renderer), mTable() {
     mNameHitBox.w = mScoreHitBox.w = WINDOW_WIDTH / 4;
     mNameHitBox.h = mScoreHitBox.h = WINDOW_HEIGHT / 25;
     mNameHitBox.x = mBackButtonHitBox.x = (WINDOW_WIDTH - mNameHitBox.w) / 3;
@@ -43,6 +43,8 @@ RecordTable::RecordTable(Renderer& renderer) : Drawable(renderer), mTable() {
     else {
         SDL_Log("ERROR: can't load texture: %s", path.c_str());
     }
+
+    ReadTable();
 }
 
 RecordTable::~RecordTable() {
